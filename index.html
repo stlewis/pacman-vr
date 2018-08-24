@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
+  </head>
+  <body>
+    <a-scene background="#000;">
+      <a-assets>
+        <img id='sky' src='./sky.jpg'>
+      </a-assets>
+      <a-sky src='#sky'></a-sky>
+
+
+        <!-- Player -->
+        <a-entity id="rig"
+                  movement-controls
+                  trackpad-controls
+                  position="0 0 0">
+
+          <a-entity camera
+                    id='camera'
+                    look-controls
+                    position="0 1.6 0">
+          </a-entity>
+        </a-entity>
+        <!-- End Player -->
+
+
+        <!-- Playing surface -->
+        <a-plane height='100' width='100' material="color: black; metalness: 0.9;" rotation='-90 0 0'></a-plane>
+
+        <a-sphere material="color: white; metalness: 0.8; roughness: 0.1;" position='0 0.5 -3' radius='0.5'></a-sphere>
+
+
+    </a-scene>
+  </body>
+</html>
