@@ -16,6 +16,13 @@ AFRAME.registerComponent('dot', {
 
   handleEaten: function() {
     this.el.emit('addPoints', {points: this.data.pointValue }, true)
+
+    var dotCount = (document.querySelectorAll('.dot').length - 1)
+
+    if(dotCount == 0){
+      this.el.emit('boardClear', {}, true);
+    }
+
     this.el.sceneEl.removeChild(this.el);
   }
 
