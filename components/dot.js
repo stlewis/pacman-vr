@@ -15,7 +15,7 @@ AFRAME.registerComponent('dot', {
   },
 
   handleEaten: function() {
-    this.el.emit('addPoints', {points: this.data.pointValue })
+    this.el.emit('addPoints', {points: this.data.pointValue }, true)
     this.el.sceneEl.removeChild(this.el);
   }
 

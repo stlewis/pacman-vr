@@ -8,7 +8,6 @@ AFRAME.registerComponent('pac-man', {
   },
 
   registerEventListeners: function() {
-    this.el.addEventListener('addPoints', function(pnts){ console.log(pnts) })
 
   }
 
