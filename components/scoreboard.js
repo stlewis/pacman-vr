@@ -30,7 +30,6 @@ AFRAME.registerComponent('scoreboard', {
   resetDots: function() {
     var baseAtts = {
       material: {color: '#FFFFFF', metalness: 0.75, roughness: 0.7},
-      class: 'dot',
       radius: 0.25,
       dot: true
     }
@@ -42,7 +41,7 @@ AFRAME.registerComponent('scoreboard', {
     ]
 
     for(i=0; i < positions.length; i++){
-      var thisDot = document.createElement('a-sphere')
+      var thisDot = document.createElement('a-pac-dot')
 
       for(attrName in baseAtts){
         thisDot.setAttribute(attrName, baseAtts[attrName])

@@ -3,10 +3,14 @@
     <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
+    <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js">
 
     <script src='./components/pac-man.js' charset="utf-8"></script>
     <script src='./components/dot.js' charset="utf-8"></script>
     <script src='./components/scoreboard.js' charset="utf-8"></script>
+
+    <script src='./primitives/pac-dot.js' charset="utf-8"></script>
+
   </head>
   <body>
     <a-scene scoreboard>
@@ -25,7 +29,7 @@
           <a-entity camera
                     id='camera'
                     pac-man
-                    sphere-collider='objects: .dot; radius: 0.5'
+                    sphere-collider='objects: a-pac-dot; radius: 0.5'
                     geometry='primitive: sphere;'
                     look-controls
                     position="0 1.6 0">
@@ -35,23 +39,12 @@
         <!-- End Player -->
 
          <!--Dot Tests-->
-        <a-sphere material='color: white; metalness: 0.75; roughness: 0.7;'
-                  class='dot'
-                  dot
-                  position='0 1 -5'
-                  radius='0.25'></a-sphere>
 
-        <a-sphere material='color: white; metalness: 0.75; roughness: 0.7;'
-                  class='dot'
-                  dot
-                  position='0 1 -10'
-                  radius='0.25'></a-sphere>
+         <a-pac-dot position='0 1 -5' material='color: white; metalness: 0.75; roughness: 0.7;'></a-pac-dot>
+         <a-pac-dot position='0 1 -7' material='color: white; metalness: 0.75; roughness: 0.7;'></a-pac-dot>
+         <a-pac-dot position='0 1 -9' material='color: white; metalness: 0.75; roughness: 0.7;'></a-pac-dot>
 
-        <a-sphere material='color: white; metalness: 0.75; roughness: 0.7;'
-                  class='dot'
-                  dot
-                  position='0 1 -15'
-                  radius='0.25'></a-sphere>
+
 
 
 

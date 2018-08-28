@@ -8,6 +8,7 @@ AFRAME.registerComponent('dot', {
   init: function() {
     this.registerEventListeners = this.registerEventListeners.bind(this);
     this.registerEventListeners();
+
   },
 
   registerEventListeners: function() {
@@ -17,7 +18,7 @@ AFRAME.registerComponent('dot', {
   handleEaten: function() {
     this.el.emit('addPoints', {points: this.data.pointValue }, true)
 
-    var dotCount = (document.querySelectorAll('.dot').length - 1)
+    var dotCount = (document.querySelectorAll('a-pac-dot').length - 1)
 
     if(dotCount == 0){
       this.el.emit('boardClear', {}, true);
