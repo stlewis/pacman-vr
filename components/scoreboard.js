@@ -31,7 +31,7 @@ AFRAME.registerComponent('scoreboard', {
     var baseAtts = {
       material: {color: '#FFFFFF', metalness: 0.75, roughness: 0.7},
       class: 'dot',
-      radius: 0.5,
+      radius: 0.25,
       dot: true
     }
 
