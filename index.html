@@ -5,6 +5,7 @@
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
     <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
     <script src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
+    <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
 
     <script src='./components/pac-man.js' charset="utf-8"></script>
     <script src='./components/dot.js' charset="utf-8"></script>
@@ -15,24 +16,24 @@
 
   </head>
   <body>
-    <a-scene scoreboard>
+    <a-scene scoreboard inspector-plugin-recast>
       <a-assets>
         <img id='sky' src='./sky.jpg'>
+        <a-asset-item id='navmesh' src='./navmesh.gltf'>
 
         <a-mixin id='wall'
-                 material='color: blue; roughness: 0.7; metalness: 0.2;'
-                 height='0.05'>
+                 material='color: yellow; roughness: 0.7; metalness: 0.2;'
+                 geometry='height: 3;'>
       </a-assets>
+      <a-gltf-model id='nav-mesh' nav-mesh src='#navmesh' position='0 0 0' visible='false'></a-gltf-model>
 
       <a-sky src='#sky'></a-sky>
 
-      <a-grid material="repeat: 100 100;" width='100' height='100'></a-grid>
-      <a-entity id='playfield' position='45 0 0'>
+      <!--<a-grid material="repeat: 100 100;" width='100' height='100'></a-grid>-->
          <!--Player-->
         <a-entity id='player' template='src: ./templates/player.html'></a-entity>
-        <!-- Playing surface -->
+         <!--Playing surface-->
         <a-entity id='maze' rotation='0 90 0' template='src: ./templates/maze.html'><a-entity>
-      </a-entity>
 
 
 
