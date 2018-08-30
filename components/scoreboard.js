@@ -24,7 +24,7 @@ AFRAME.registerComponent('scoreboard', {
     console.log(player)
     player.object3D.position.set(0, 0, 0)
 
-    this.resetDots() // Restore all dots.
+    //this.resetDots() // Restore all dots.
   },
 
   resetDots: function() {
