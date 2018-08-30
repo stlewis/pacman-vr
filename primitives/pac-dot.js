@@ -3,10 +3,10 @@ var meshMixin = AFRAME.primitives.getMeshMixin();
 
 AFRAME.registerPrimitive('a-pac-dot', extendDeep({}, meshMixin, {
   defaultComponents: {
-    geometry: { primitive: 'box', width: 0.25, height: 0.25, depth: 0.25 },
+    geometry: { primitive: 'box', width: 0.5, height: 0.5, depth: 0.5 },
     material: { color: '#FFFFFF' },
     dot: {},
-    animation: { property: 'rotation', from: '-45 -45 -45', to: '45 45 45', dur: 1000, dir: 'normal', loop: true  }
+    animation: { property: 'rotation', easing: "linear", to: '45 45 45', dur: 1000, dir: 'normal', loop: true  }
   },
 
   mappings: {
