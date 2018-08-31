@@ -7,6 +7,7 @@
     <script src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
     <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
     <script src="https://rawgit.com/mayognaise/aframe-gif-component/master/dist/aframe-gif-component.min.js"></script>
+    <script src='https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js'></script>
 
     <script src='./components/pac-man.js' charset="utf-8"></script>
     <script src='./components/dot.js' charset="utf-8"></script>
@@ -50,16 +51,22 @@
         pac-man
         position="-23.9 0 0.739">
 
+
         <a-entity gearvr-controls>
-          <a-entity id='score' position='0 0 -3' text='color: green; value: 0; height: 10; width: 5;'></a-entity>
         </a-entity>
 
         <a-entity camera
                   id='camera'
-                  sphere-collider='objects: a-pac-dot; radius: 0.5'
+                  sphere-collider='objects: a-pac-dot; radius: 1'
                   geometry='primitive: sphere;'
                   look-controls
                   position="0 1.6 0">
+
+          <a-gui-flex-container panel-color='#666666;' opacity='0.7'  position='0 0.25 -1.5' width='0.5' height='0.5' rotation='-35 0 0'>
+
+            <a-text value='Score:' anchor='left' width='1.5' position='-0.25 0 0'></a-text>
+            <a-text id='score' value='0' anchor='left' width='1.5' position='-0.025 0 0'></a-text>
+          </a-gui-flex-container>
         </a-entity>
       </a-entity>
 
