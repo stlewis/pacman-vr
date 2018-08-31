@@ -42,15 +42,17 @@
 
 
       <a-gltf-model id='nav-mesh' nav-mesh src='#navmesh' position='0 0 0' visible='false'></a-gltf-model>
-      <!--<a-grid material="repeat: 100 100;" width='100' height='100'></a-grid>-->
       <a-plane id='ground' height='100' width='100' material="color: black; metalness: 0.9;" rotation='-90 0 0' position='0 0 -30.2'></a-plane>
       <!--Player-->
 
       <a-entity id="rig"
-        movement-controls="constrainToNavMesh: true;"
+        movement-controls="speed: 0.1; constrainToNavMesh: true;"
         pac-man
-        position="-23.9 0 0.739"
-        >
+        position="-23.9 0 0.739">
+
+        <a-entity gearvr-controls>
+          <a-entity id='score' position='0 0 -3' text='color: green; value: 0; height: 10; width: 5;'></a-entity>
+        </a-entity>
 
         <a-entity camera
                   id='camera'
@@ -58,7 +60,6 @@
                   geometry='primitive: sphere;'
                   look-controls
                   position="0 1.6 0">
-          <a-entity id='score' position='4.5 0.25 -2.6' text='color: green; value: 0; height: 10; width: 5;'></a-entity>
         </a-entity>
       </a-entity>
 
