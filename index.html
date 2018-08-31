@@ -47,7 +47,7 @@
       <!--Player-->
 
       <a-entity id="rig"
-        movement-controls="speed: 0.1; constrainToNavMesh: true;"
+        movement-controls="speed: 0.2; constrainToNavMesh: true;"
         pac-man
         position="-23.9 0 0.739">
 
@@ -62,11 +62,12 @@
                   look-controls
                   position="0 1.6 0">
 
-          <a-gui-flex-container panel-color='#666666;' opacity='0.7'  position='0 0.25 -1.5' width='0.5' height='0.5' rotation='-35 0 0'>
-
-            <a-text value='Score:' anchor='left' width='1.5' position='-0.25 0 0'></a-text>
-            <a-text id='score' value='0' anchor='left' width='1.5' position='-0.025 0 0'></a-text>
-          </a-gui-flex-container>
+          <a-entity id='score-wrapper' visible='false'>
+            <a-gui-flex-container panel-color='#666666;' opacity='0.5'  position='0 0.25 -1.5' width='0.5' height='0.5' rotation='-35 0 0'>
+              <a-text value='Score:' anchor='left' width='1.5' position='-0.25 0 0'></a-text>
+              <a-text id='score' value='0' anchor='left' width='1.5' position='-0.025 0 0'></a-text>
+            </a-gui-flex-container>
+          </a-entity>
         </a-entity>
       </a-entity>
 

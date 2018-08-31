@@ -10,6 +10,16 @@ AFRAME.registerComponent('scoreboard', {
   registerEventListeners: function() {
     this.el.addEventListener('addPoints', this.addPoints.bind(this));
     this.el.addEventListener('boardClear', this.boardClear.bind(this));
+    this.el.addEventListener('trackpaddown', this.showScore.bind(this));
+    this.el.addEventListener('trackpadup', this.hideScore.bind(this));
+  },
+
+  showScore: function(){
+    document.querySelector('#score-wrapper').setAttribute('visible', true);
+  },
+
+  hideScore: function() {
+    document.querySelector('#score-wrapper').setAttribute('visible', false);
   },
 
   addPoints: function(e){
