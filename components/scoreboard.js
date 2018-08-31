@@ -35,7 +35,38 @@ AFRAME.registerComponent('scoreboard', {
       dot: true
     }
 
+    var superAtts = {
+      material: {color: '#FFFFFF', metalness: 0.75, roughness: 0.7},
+      dot: true,
+      geometry: "primitive: sphere; radius: 0.75",
+      pointvalue: 50,
+      grantsinvulnerability: true
+    }
+
     var positions = [
+      {x: -2, y: 1, z: 26},
+      {x: -4, y: 1, z: 26},
+      {x: -6, y: 1, z: 26},
+
+      {x: -6, y: 1, z: 24},
+      {x: -6, y: 1, z: 22},
+
+      {x: -8, y: 1, z: 22},
+      {x: -10, y: 1, z: 22},
+
+      {x: -12, y: 1, z: 22},
+
+      {x: -12, y: 1, z: 24},
+      {x: -12, y: 1, z: 26, superDot: true},
+
+      {x: -14, y: 1, z: 26},
+      {x: -16, y: 1, z: 26},
+      {x: -18, y: 1, z: 26},
+
+      {x: -6, y: 1, z: 20},
+      {x: -6, y: 1, z: 18},
+      {x: -6, y: 1, z: 16},
+
       {x: 0, y: 1, z: 26},
       {x: 0, y: 1, z: 24},
       {x: 0, y: 1, z: 22},
@@ -48,10 +79,40 @@ AFRAME.registerComponent('scoreboard', {
       {x: 0, y: 1, z: 8},
       {x: 0, y: 1, z: 6},
       {x: 0, y: 1, z: 4},
+
+      {x: -2, y: 1, z: 4},
+      {x: -4, y: 1, z: 4},
+
+      {x: -6, y: 1, z: 4},
+
+      {x: -6, y: 1, z: 6},
+      {x: -6, y: 1, z: 8},
+      {x: -6, y: 1, z: 10},
+
+      {x: -8, y: 1, z: 10},
+      {x: -10, y: 1, z: 10},
+      {x: -12, y: 1, z: 10},
+
       {x: 0, y: 1, z: 2},
       {x: 0, y: 1, z: 0},
       {x: 0, y: 1, z: -2},
+
+      {x: -2, y: 1, z: -2},
+      {x: -4, y: 1, z: -2},
+      {x: -6, y: 1, z: -2},
+
+      {x: -6, y: 1, z: -4},
+      {x: -6, y: 1, z: -6},
+      {x: -6, y: 1, z: -8},
+
+
+      {x: -8, y: 1, z: -8},
+      {x: -10, y: 1, z: -8},
+      {x: -12, y: 1, z: -8},
+
       {x: 0, y: 1, z: -4},
+
+
       {x: 0, y: 1, z: -6},
       {x: 0, y: 1, z: -8},
       {x: 0, y: 1, z: -10},
@@ -62,6 +123,33 @@ AFRAME.registerComponent('scoreboard', {
       {x: 0, y: 1, z: -20},
       {x: 0, y: 1, z: -22},
       {x: 0, y: 1, z: -24},
+      {x: -2, y: 1, z: -24},
+      {x: -4, y: 1, z: -24},
+      {x: -6, y: 1, z: -24},
+
+
+      {x: -6, y: 1, z: -22},
+
+
+      {x: -6, y: 1, z: -20},
+
+      {x: -8, y: 1, z: -20},
+      {x: -10, y: 1, z: -20},
+
+      {x: -12, y: 1, z: -20},
+      {x: -12, y: 1, z: -22},
+      {x: -12, y: 1, z: -24, superDot: true},
+
+      {x: -14, y: 1, z: -24},
+      {x: -16, y: 1, z: -24},
+      {x: -18, y: 1, z: -24},
+
+
+
+      {x: -6, y: 1, z: -18},
+      {x: -6, y: 1, z: -16},
+      {x: -6, y: 1, z: -14},
+
 
     ]
 
@@ -70,6 +158,21 @@ AFRAME.registerComponent('scoreboard', {
 
       for(attrName in baseAtts){
         thisDot.setAttribute(attrName, baseAtts[attrName])
+      }
+
+      if(positions[i].color){
+        thisDot.setAttribute('color', positions[i].color)
+      }
+
+      if(positions[i].superDot){
+        for(attrName in superAtts){
+          console.log(attrName)
+          thisDot.setAttribute(attrName, superAtts[attrName])
+        }
+      }else{
+        for(attrName in baseAtts){
+          thisDot.setAttribute(attrName, baseAtts[attrName])
+        }
       }
 
       thisDot.setAttribute('position', positions[i])
