@@ -13,16 +13,21 @@
     <script src='./components/dot.js' charset="utf-8"></script>
     <script src='./components/scoreboard.js' charset="utf-8"></script>
     <script src='./components/camera-lock.js' charset="utf-8"></script>
+    <script src='./components/stalker.js'></script>
 
     <script src='./primitives/pac-dot.js' charset="utf-8"></script>
 
   </head>
   <body>
-    <a-scene scoreboard inspector-plugin-recast camera-lock>
+    <a-scene scoreboard>
       <a-assets>
         <img id='sky' src='./sky.jpg'>
         <img id='portal' src='./images/portal.gif'>
         <a-asset-item id='navmesh' src='./navmesh.gltf'>
+        <a-asset-item id='blinky' src='./blinky.gltf'>
+        <a-asset-item id='pinky' src='./pinky.gltf'>
+        <a-asset-item id='inky' src='./inky.gltf'>
+        <a-asset-item id='clyde' src='./clyde.gltf'>
 
         <a-mixin id='wall'
                  material='color: blue; roughness: 0.7; metalness: 0.2;'
@@ -69,6 +74,19 @@
             </a-gui-flex-container>
           </a-entity>
         </a-entity>
+      </a-entity>
+
+      <!-- One "ghost" -->
+      <a-entity
+        stalker="targetEntity: #rig;"
+        nav-agent='speed: 3;'
+        geometry='primitive: box; height: 1; width: 1; depth: 1;'
+        material="transparent: true; opacity: 0;"
+        position='-31 2.5 0.73'>
+          <a-gltf-model src='#pinky'
+                        position='0 1.6 0'
+                        scale='0.07 0.07 0.07'
+                        ></a-gltf-model>
       </a-entity>
 
 
