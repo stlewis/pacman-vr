@@ -8,6 +8,12 @@ AFRAME.registerComponent('stalker', {
   init: function () {
     console.log("Ready to stalk!")
     this.target = document.querySelector(this.data.targetEntity);
+    this.el.addEventListener('hit', this.handleCollision.bind(this));
+  },
+
+  handleCollision: function(e){
+    var detail = e.detail
+    if(detail.el) console.log(detail)
   },
 
   tick: function() {

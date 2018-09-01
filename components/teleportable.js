@@ -1,4 +1,4 @@
-AFRAME.registerComponent('pac-man', {
+AFRAME.registerComponent('teleportable', {
   tick: function() {
     var currentPosition = this.el.getAttribute('position')
 
