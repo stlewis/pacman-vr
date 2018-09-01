@@ -10,6 +10,7 @@
     <script src='https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js'></script>
 
     <script src='./components/teleportable.js' charset="utf-8"></script>
+    <script src='./components/pac-man.js' charset="utf-8"></script>
     <script src='./components/dot.js' charset="utf-8"></script>
     <script src='./components/scoreboard.js' charset="utf-8"></script>
     <script src='./components/camera-lock.js' charset="utf-8"></script>
@@ -32,6 +33,8 @@
         <a-mixin id='wall'
                  material='color: blue; roughness: 0.7; metalness: 0.2;'
                  geometry='height: 0.25;'>
+          <a-mixin id='ghost-dims' scale='0.12 0.12 0.12'><a-mixin>
+          <a-mixin id='ghost-behavior' stalker='targetEntity: #rig;' nav-agent='speed: 3;'></a-mixin>
       </a-assets>
 
       <!-- Portals -->
@@ -47,7 +50,7 @@
       <a-sky src='#sky'></a-sky>
 
 
-      <a-gltf-model id='nav-mesh' nav-mesh src='#navmesh' position='0 0 0' visible='false'></a-gltf-model>
+      <a-gltf-model id='nav-mesh' nav-mesh src='#navmesh' position='0 0.1 0' visible='false'></a-gltf-model>
       <a-plane id='ground' height='100' width='100' material="color: black; metalness: 0.9;" rotation='-90 0 0' position='0 0 -30.2'></a-plane>
       <!--Player-->
 
@@ -61,6 +64,7 @@
         </a-entity>
 
         <a-entity camera
+                  pac-man
                   id='camera'
                   sphere-collider='objects: a-pac-dot; radius: 1;'
                   geometry='primitive: sphere;'
@@ -79,15 +83,58 @@
 
       <!-- One "ghost" -->
       <a-entity
-        stalker="targetEntity: #rig;"
+        id='blinky-ghost'
+        mixin='ghost-behavior'
+        starting-position='-35.5 2.5 1.133'
         sphere-collider='objects: #camera; radius: 1;'
-        nav-agent='speed: 3;'
         geometry='primitive: box; height: 1; width: 1; depth: 1;'
         material="transparent: true; opacity: 0;"
-        position='-31 2.5 0.73'>
+        position='-35.5 1.7 1.133'>
+          <a-gltf-model src='#blinky'
+                        position='0 1.6 0'
+                        mixin='ghost-dims'
+                        ></a-gltf-model>
+      </a-entity>
+
+      <a-entity
+        id='inky-ghost'
+        mixin='ghost-behavior'
+        sphere-collider='objects: #camera; radius: 1;'
+        starting-position='-29.7 2.5 4.754'
+        geometry='primitive: box; height: 1; width: 1; depth: 1;'
+        material="transparent: true; opacity: 0;"
+        position='-29.7 1.6 4.754'>
+          <a-gltf-model src='#inky'
+                        position='0 1.6 0'
+                        mixin='ghost-dims'
+                        ></a-gltf-model>
+      </a-entity>
+
+      <a-entity
+        id='pinky-ghost'
+        mixin='ghost-behavior'
+        sphere-collider='objects: #camera; radius: 1;'
+        starting-position='-29.7 2.5 0.817'
+        geometry='primitive: box; height: 1; width: 1; depth: 1;'
+        material="transparent: true; opacity: 0;"
+        position='-29.7 2.5 0.817'>
           <a-gltf-model src='#pinky'
                         position='0 1.6 0'
-                        scale='0.07 0.07 0.07'
+                        mixin='ghost-dims'
+                        ></a-gltf-model>
+      </a-entity>
+
+      <a-entity
+        id='clyde-ghost'
+        mixin='ghost-behavior'
+        sphere-collider='objects: #camera; radius: 1;'
+        starting-position='-29.7 2.5 -2.99'
+        geometry='primitive: box; height: 1; width: 1; depth: 1;'
+        material="transparent: true; opacity: 0;"
+        position='-29.7 2.5 -2.99'>
+          <a-gltf-model src='#clyde'
+                        position='0 1.6 0'
+                        mixin='ghost-dims'
                         ></a-gltf-model>
       </a-entity>
 

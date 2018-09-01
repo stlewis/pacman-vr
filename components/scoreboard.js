@@ -10,6 +10,7 @@ AFRAME.registerComponent('scoreboard', {
   registerEventListeners: function() {
     this.el.addEventListener('addPoints', this.addPoints.bind(this));
     this.el.addEventListener('boardClear', this.boardClear.bind(this));
+    this.el.addEventListener("dead", this.handleDeath.bind(this));
     this.el.addEventListener('trackpaddown', this.showScore.bind(this));
     this.el.addEventListener('trackpadup', this.hideScore.bind(this));
   },
@@ -30,9 +31,60 @@ AFRAME.registerComponent('scoreboard', {
     scoreEl.setAttribute('text', { value: scoreValue + e.detail.points })
   },
 
+  handleDeath: function(e){
+    var player = document.querySelector('a-entity[teleportable]')
+    var blinky = document.querySelector('#blinky-ghost');
+    var pinky  = document.querySelector('#pinky-ghost');
+    var inky   = document.querySelector('#inky-ghost');
+    var clyde  = document.querySelector('#clyde-ghost');
+
+    var blinkyStart = new THREE.Vector3;
+    var pinkyStart  = new THREE.Vector3;
+    var inkyStart   = new THREE.Vector3;
+    var clydeStart  = new THREE.Vector3;
+
+    blinkyCoords = blinky.getAttribute('starting-position').split(' ');
+    pinkyCoords  = pinky.getAttribute('starting-position').split(' ');
+    inkyCoords   = inky.getAttribute('starting-position').split(' ');
+    clydeCoords  = clyde.getAttribute('starting-position').split(' ');
+
+    console.log(pinkyCoords)
+
+    blinkyStart.x = blinkyCoords[0]
+    blinkyStart.y = blinkyCoords[1]
+    blinkyStart.z = blinkyCoords[2]
+
+    pinkyStart.x = pinkyCoords[0]
+    pinkyStart.y = pinkyCoords[1]
+    pinkyStart.z = pinkyCoords[2]
+
+    inkyStart.x = inkyCoords[0]
+    inkyStart.y = inkyCoords[1]
+    inkyStart.z = inkyCoords[2]
+
+    clydeStart.x = clydeCoords[0]
+    clydeStart.y = clydeCoords[1]
+    clydeStart.z = clydeCoords[2]
+
+
+    blinky.setAttribute('position', blinkyStart);
+    blinky.setAttribute('nav-agent', {active: false})
+
+    pinky.setAttribute('position', pinkyStart);
+    pinky.setAttribute('nav-agent', {active: false})
+
+    inky.setAttribute('position', inkyStart);
+    inky.setAttribute('nav-agent', {active: false})
+
+    clyde.setAttribute('position', clydeStart);
+    clyde.setAttribute('nav-agent', {active: false})
+
+
+    player.object3D.position.set(-23.9, 0, 0.739)
+  },
+
   boardClear: function(e){
-    var player = document.querySelector('a-entity[pac-man]')
-    console.log(player)
+    var player = document.querySelector('a-entity[teleportable]')
     player.object3D.position.set(-23.9, 0, 0.739)
 
     this.resetDots() // Restore all dots.

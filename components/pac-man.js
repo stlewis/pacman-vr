@@ -1,14 +1,10 @@
 AFRAME.registerComponent('pac-man', {
+  init: function(){
+  },
+
   tick: function() {
-    var currentPosition = this.el.getAttribute('position')
-
-    if(currentPosition.z <= -25){
-      // Teleport the user to 27
-      this.el.setAttribute('position', { x: currentPosition.x, y: currentPosition.y, z: 27 })
-    }
-
-    if(currentPosition.z >= 28){
-      this.el.setAttribute('position', { x: currentPosition.x, y: currentPosition.y, z: -24 })
+    if(this.el.is("collided")){
+      this.el.emit("dead");
     }
   }
 
