@@ -17,6 +17,7 @@ AFRAME.registerComponent('dot', {
 
   handleEaten: function(e) {
     this.el.emit('addPoints', {points: this.data.pointValue }, true)
+    this.el.emit('dotEaten');
 
     var dotCount = (document.querySelectorAll('a-pac-dot').length - 1)
 

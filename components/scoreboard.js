@@ -5,10 +5,13 @@ AFRAME.registerComponent('scoreboard', {
 
     this.registerEventListeners();
     this.resetDots()
+
+    this.globalDotCounter = 0;
   },
 
   registerEventListeners: function() {
     this.el.addEventListener('addPoints', this.addPoints.bind(this));
+    this.el.addEventListener('dotEaten', this.handleDotEaten.bind(this));
     this.el.addEventListener('boardClear', this.boardClear.bind(this));
     this.el.addEventListener("dead", this.handleDeath.bind(this));
     this.el.addEventListener('trackpaddown', this.showScore.bind(this));
@@ -21,6 +24,12 @@ AFRAME.registerComponent('scoreboard', {
 
   hideScore: function() {
     document.querySelector('#score-wrapper').setAttribute('visible', false);
+  },
+
+  handleDotEaten: function(e){
+    this.globalDotCounter += 1;
+    // When the global counter hits certain milestones, release a ghost
+    // by activating their nav agent
   },
 
   addPoints: function(e){

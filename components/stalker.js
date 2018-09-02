@@ -2,11 +2,11 @@
 AFRAME.registerComponent('stalker', {
 
   schema: {
-    targetEntity: { type: 'string', default: '' }
+    targetEntity: { type: 'string', default: '' },
+    initializationDotCount: {type: 'number', default: 0 }
   },
 
   init: function () {
-    console.log("Ready to stalk!")
     this.target = document.querySelector(this.data.targetEntity);
     this.el.addEventListener('hit', this.handleCollision.bind(this));
   },
@@ -17,8 +17,13 @@ AFRAME.registerComponent('stalker', {
   },
 
   tick: function() {
-    var targetLocation = this.target.object3D.position;
-    this.el.setAttribute('nav-agent', { active: true, destination: targetLocation })
+    var targetLocation  = this.target.object3D.position;
+    var sceneEl         = this.el.sceneEl;
+    var currentDotCount = sceneEl.components.scoreboard.globalDotCounter;
+
+    var isActive = currentDotCount >= this.data.initializationDotCount;
+
+    this.el.setAttribute('nav-agent', { active: isActive, destination: targetLocation })
   }
 
 });

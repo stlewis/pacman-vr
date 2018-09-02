@@ -34,8 +34,9 @@
                  material='color: blue; roughness: 0.7; metalness: 0.2;'
                  geometry='height: 0.25;'>
           <a-mixin id='ghost-dims' scale='0.12 0.12 0.12'><a-mixin>
-          <a-mixin id='ghost-behavior' stalker='targetEntity: #rig;' nav-agent='speed: 3;'></a-mixin>
+          <a-mixin id='ghost-behavior' nav-agent='speed: 3;'></a-mixin>
       </a-assets>
+      <a-sky src='#sky'></a-sky>
 
       <!-- Portals -->
       <a-entity id='left-portal' geometry="primitive: plane; height: 4; width: 2;"
@@ -47,8 +48,9 @@
                                  position='-30 1.6 -26'
                                  rotation='0 0 0'
                                  material='shader:gif; src: url(./images/portal.gif)'></a-entity>
-      <a-sky src='#sky'></a-sky>
 
+       <!--Scoreboards-->
+      <!--<a-entity id='scoreboards' template='src: ./templates/scoreboards.html'><a-entity>-->
 
       <a-gltf-model id='nav-mesh' nav-mesh src='#navmesh' position='0 0.1 0' visible='false'></a-gltf-model>
       <a-plane id='ground' height='100' width='100' material="color: black; metalness: 0.9;" rotation='-90 0 0' position='0 0 -30.2'></a-plane>
@@ -85,6 +87,7 @@
       <a-entity
         id='blinky-ghost'
         mixin='ghost-behavior'
+        stalker='targetEntity: #rig;'
         starting-position='-35.5 2.5 1.133'
         sphere-collider='objects: #camera; radius: 1;'
         geometry='primitive: box; height: 1; width: 1; depth: 1;'
@@ -99,6 +102,7 @@
       <a-entity
         id='inky-ghost'
         mixin='ghost-behavior'
+        stalker='targetEntity: #rig; initializationDotCount: 20'
         sphere-collider='objects: #camera; radius: 1;'
         starting-position='-29.7 2.5 4.754'
         geometry='primitive: box; height: 1; width: 1; depth: 1;'
@@ -113,6 +117,7 @@
       <a-entity
         id='pinky-ghost'
         mixin='ghost-behavior'
+        stalker='targetEntity: #rig; initializationDotCount: 10'
         sphere-collider='objects: #camera; radius: 1;'
         starting-position='-29.7 2.5 0.817'
         geometry='primitive: box; height: 1; width: 1; depth: 1;'
@@ -127,6 +132,7 @@
       <a-entity
         id='clyde-ghost'
         mixin='ghost-behavior'
+        stalker='targetEntity: #rig; initializationDotCount: 30'
         sphere-collider='objects: #camera; radius: 1;'
         starting-position='-29.7 2.5 -2.99'
         geometry='primitive: box; height: 1; width: 1; depth: 1;'
