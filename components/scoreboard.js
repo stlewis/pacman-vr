@@ -34,10 +34,17 @@ AFRAME.registerComponent('scoreboard', {
 
   addPoints: function(e){
     scoreEl    = document.querySelector('#score')
+    panelEls   = document.querySelectorAll('.scorevalue')
     scoreAttr  = scoreEl.getAttribute('text')
     scoreValue = parseInt(scoreAttr.value)
 
     scoreEl.setAttribute('text', { value: scoreValue + e.detail.points })
+
+    for(i = 0; i < panelEls.length; i++){
+      panel = panelEls[i];
+
+      panel.setAttribute('text', {value: scoreValue + e.detail.points })
+    }
   },
 
   handleDeath: function(e){

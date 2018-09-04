@@ -17,6 +17,7 @@ AFRAME.registerComponent('stalker', {
   },
 
   tick: function() {
+    if(!this.target) return;
     var targetLocation  = this.target.object3D.position;
     var sceneEl         = this.el.sceneEl;
     var currentDotCount = sceneEl.components.scoreboard.globalDotCounter;

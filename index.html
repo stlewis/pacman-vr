@@ -1,13 +1,15 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
-    <script src="//cdn.rawgit.com/stlewis/aframe-extras/master/dist/aframe-extras.min.js"></script>
+    <!--<script src="//cdn.rawgit.com/stlewis/aframe-extras/master/dist/aframe-extras.min.js"></script>-->
+    <script src='./aframe-extras.js'></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
     <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
     <script src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
     <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
     <script src="https://rawgit.com/mayognaise/aframe-gif-component/master/dist/aframe-gif-component.min.js"></script>
     <script src='https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js'></script>
+    <script src="https://unpkg.com/aframe-fps-counter-component@^1.0.1/dist/aframe-fps-counter-component.min.js"></script>
 
     <script src='./components/teleportable.js' charset="utf-8"></script>
     <script src='./components/pac-man.js' charset="utf-8"></script>
@@ -50,19 +52,55 @@
                                  material='shader:gif; src: url(./images/portal.gif)'></a-entity>
 
        <!--Scoreboards-->
-      <!--<a-entity id='scoreboards' template='src: ./templates/scoreboards.html'><a-entity>-->
+       <!-- Top  -->
+       <a-gui-flex-container
+                             id='top-score'
+                             position='-62. 5.528 3.453'
+                             rotation='0 90 0'>
+         <a-text width='40' value="Score: "><a-text>
+         <a-text class='scorevalue' width='40' value="0" position='5.2 0 0 '><a-text>
+       </a-gui-flex-container>
+
+       <!-- Bottom -->
+       <a-gui-flex-container
+                             id='bottom-score'
+                             position='2.386 5.528 0.945'
+                             rotation='0 -90 0'>
+         <a-text width='40' value="Score: "><a-text>
+         <a-text class='scorevalue' width='40' value="0" position='5.2 0 0 '><a-text>
+       </a-gui-flex-container>
+
+       <!-- Left -->
+       <a-gui-flex-container
+                             id='left-score'
+                             position='-27.7 5.528 31.44'
+                             rotation='0 180 0'>
+         <a-text width='40' value="Score: "><a-text>
+         <a-text class='scorevalue' width='40' value="0" position='5.2 0 0 '><a-text>
+       </a-gui-flex-container>
+
+       <!-- Right -->
+       <a-gui-flex-container
+                             id='right-score'
+                             position='-33.2 5.528 -28.44'
+                             rotation='0 0 0'>
+         <a-text width='40' value="Score: "><a-text>
+         <a-text class='scorevalue' width='40' value="0" position='5.2 0 0 '><a-text>
+       </a-gui-flex-container>
+
 
       <a-gltf-model id='nav-mesh' nav-mesh src='#navmesh' position='0 0.1 0' visible='false'></a-gltf-model>
-      <a-plane id='ground' height='100' width='100' material="color: black; metalness: 0.9;" rotation='-90 0 0' position='0 0 -30.2'></a-plane>
+      <a-plane id='ground' height='100' width='100' material="color: black; metalness: 0.9;" rotation='-90 0 0' position='-29 0 -0.45'></a-plane>
       <!--Player-->
 
       <a-entity id="rig"
         teleportable
-        movement-controls="speed: 0.2; constrainToNavMesh: true;"
+        movement-controls="speed: 0.1; constrainToNavMesh: true;"
         position="-23.9 0 0.739">
 
 
         <a-entity gearvr-controls>
+          <a-entity fps-counter></a-entity>
         </a-entity>
 
         <a-entity camera
