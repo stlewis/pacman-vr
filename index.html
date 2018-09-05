@@ -1,8 +1,8 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
-    <!--<script src="//cdn.rawgit.com/stlewis/aframe-extras/master/dist/aframe-extras.min.js"></script>-->
-    <script src='./aframe-extras.js'></script>
+    <script src="//cdn.rawgit.com/stlewis/aframe-extras/master/dist/aframe-extras.min.js"></script>
+    <!--<script src='./aframe-extras.js'></script>-->
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
     <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
     <script src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
@@ -10,6 +10,8 @@
     <script src="https://rawgit.com/mayognaise/aframe-gif-component/master/dist/aframe-gif-component.min.js"></script>
     <script src='https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js'></script>
     <script src="https://unpkg.com/aframe-fps-counter-component@^1.0.1/dist/aframe-fps-counter-component.min.js"></script>
+
+    <script src='./systems/pac-maze.js'></script>
 
     <script src='./components/teleportable.js' charset="utf-8"></script>
     <script src='./components/pac-man.js' charset="utf-8"></script>
@@ -22,7 +24,7 @@
 
   </head>
   <body>
-    <a-scene scoreboard>
+    <a-scene visible='true' scoreboard pac-maze>
       <a-assets>
         <img id='sky' src='./images/sky.jpg'>
         <img id='portal' src='./images/portal.gif'>

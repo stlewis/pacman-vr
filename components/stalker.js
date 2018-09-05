@@ -17,6 +17,7 @@ AFRAME.registerComponent('stalker', {
   },
 
   tick: function() {
+    return true;
     if(!this.target) return;
     var targetLocation  = this.target.object3D.position;
     var sceneEl         = this.el.sceneEl;
