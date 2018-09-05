@@ -1,6 +1,10 @@
 AFRAME.registerSystem('pac-maze', {
 
   init: function() {
+    //this.el.addEventListener('model-loaded', this.initializeFrameArray());
+  },
+
+  update: function() {
     this.initializeFrameArray();
   },
 
@@ -18,8 +22,17 @@ AFRAME.registerSystem('pac-maze', {
         lastZ = frameRow[i - 1].position.z
         thisZ = lastZ - 2
 
-        thisPosition = { x: xPos, y: 0, z: thisZ }
-        frameRow.push({ position: thisPosition })
+        thisPosition = { x: xPos, y: 1, z: thisZ }
+        navAgent = this.el.systems.nav
+
+        vec3Pos = new THREE.Vector3(thisPosition.x, thisPosition.y, thisPosition.z)
+        group = navAgent.getGroup(vec3Pos);
+
+        console.log("Group:", group)
+
+        isTraversable = false
+        path = navAgent.getPath(thisPosition, thisPosition, group) || [];
+        frameRow.push({ position: thisPosition, traversable: isTraversable })
       }
 
       this.frameArray.push(frameRow);

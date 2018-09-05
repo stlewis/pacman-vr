@@ -8,16 +8,10 @@ AFRAME.registerComponent('stalker', {
 
   init: function () {
     this.target = document.querySelector(this.data.targetEntity);
-    this.el.addEventListener('hit', this.handleCollision.bind(this));
-  },
-
-  handleCollision: function(e){
-    var detail = e.detail
-    if(detail.el) console.log(detail)
   },
 
   tick: function() {
-    return true;
+    //return true;
     if(!this.target) return;
     var targetLocation  = this.target.object3D.position;
     var sceneEl         = this.el.sceneEl;

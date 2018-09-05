@@ -1,7 +1,7 @@
 AFRAME.registerComponent('teleportable', {
   tick: function() {
     var currentPosition = this.el.getAttribute('position')
-    var currentFrame    = this.el.sceneEl.systems['pac-maze'].frameFromPosition(currentPosition).position
+    //var currentFrame    = this.el.sceneEl.systems['pac-maze'].frameFromPosition(currentPosition).position
 
     if(currentPosition.z <= -25){
       // Teleport the user to 27

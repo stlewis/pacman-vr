@@ -11,9 +11,9 @@ AFRAME.registerPrimitive('a-pac-dot', extendDeep({}, meshMixin, {
 
   mappings: {
     geometry: 'geometry',
-    depth: 'geometry.depth',
-    height: 'geometry.height',
-    width: 'geometry.width',
+    //depth: 'geometry.depth',
+    //height: 'geometry.height',
+    //width: 'geometry.width',
     color: 'material.color',
     pointvalue: 'dot.pointValue',
     grantsinvulnerability: 'dot.grantsInvulnerability'

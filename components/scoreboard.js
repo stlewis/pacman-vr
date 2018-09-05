@@ -64,8 +64,6 @@ AFRAME.registerComponent('scoreboard', {
     inkyCoords   = inky.getAttribute('starting-position').split(' ');
     clydeCoords  = clyde.getAttribute('starting-position').split(' ');
 
-    console.log(pinkyCoords)
-
     blinkyStart.x = blinkyCoords[0]
     blinkyStart.y = blinkyCoords[1]
     blinkyStart.z = blinkyCoords[2]
