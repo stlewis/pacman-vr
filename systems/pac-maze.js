@@ -10,7 +10,7 @@ AFRAME.registerSystem('pac-maze', {
     var lastX             = -58
     var traversableFrames = this.getTraversableFrames();
 
-    for(j = 0; j <= 33; j++){
+    for(j = 1; j <= 33; j++){
       xPos     = lastX + 2
       lastX        = xPos
       frameRow = [ {position: {x: xPos, y: 0, z: 28 } } ];
@@ -19,9 +19,9 @@ AFRAME.registerSystem('pac-maze', {
         lastZ = frameRow[i - 1].position.z
         thisZ = lastZ - 2
 
-        thisPosition = { x: xPos, y: 1, z: thisZ }
-        isTraversable = traversableFrames.filter(function(frame){ return frame.x == j && frame.y == i   }).length == 1
-        frameRow.push({ position: thisPosition, traversable: isTraversable })
+        thisPosition = { x: xPos, y: 0, z: thisZ }
+        isTraversable = traversableFrames.filter(function(frame){ return frame.x == i && frame.y == j   }).length == 1
+        frameRow.push({ position: thisPosition, traversable: isTraversable, x: i, y: j })
       }
 
       this.frameArray.push(frameRow);
@@ -39,9 +39,9 @@ AFRAME.registerSystem('pac-maze', {
       for(i = 0; i < row.length; i++){
         targetFrame = this.frameArray[j][i];
 
-        distance = this.distanceBetween({x: j, y: i}, {x: centerFrame.x, y: centerFrame.y})
+        distance = this.distanceBetween({x: i, y: j}, {x: centerFrame.x, y: centerFrame.y})
 
-        if(distance <= targetDistance) frames.push(targetFrame);
+        if(distance <= targetDistance && targetFrame != centerFrame) frames.push(targetFrame);
       }
     }
 
@@ -57,7 +57,9 @@ AFRAME.registerSystem('pac-maze', {
     var xDistance = Math.abs(targetX - centerX);
     var yDistance = Math.abs(targetY - centerY);
 
-    return xDistance + yDistance
+    result = xDistance + yDistance
+    return result
+
   },
 
   frameFromPosition: function(targetPosition) {

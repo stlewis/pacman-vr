@@ -1,5 +1,5 @@
 
-AFRAME.registerComponent('stalker', {
+AFRAME.registerComponent('inky-behavior', {
 
   schema: {
     targetEntity: { type: 'string', default: '' },

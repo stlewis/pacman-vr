@@ -18,7 +18,10 @@
     <script src='./components/dot.js' charset="utf-8"></script>
     <script src='./components/scoreboard.js' charset="utf-8"></script>
     <script src='./components/camera-lock.js' charset="utf-8"></script>
-    <script src='./components/stalker.js'></script>
+    <script src='./components/behaviors/blinky-behavior.js'></script>
+    <script src='./components/behaviors/pinky-behavior.js'></script>
+    <script src='./components/behaviors/inky-behavior.js'></script>
+    <script src='./components/behaviors/clyde-behavior.js'></script>
 
     <script src='./primitives/pac-dot.js' charset="utf-8"></script>
 
@@ -127,7 +130,7 @@
       <a-entity
         id='blinky-ghost'
         mixin='ghost-behavior'
-        stalker='targetEntity: #rig;'
+        blinky-behavior='targetEntity: #rig; initializationDotCount: 1000'
         starting-position='-35.5 2.5 1.133'
         sphere-collider='objects: #camera; radius: 1;'
         geometry='primitive: box; height: 1; width: 1; depth: 1;'
@@ -142,7 +145,7 @@
       <a-entity
         id='inky-ghost'
         mixin='ghost-behavior'
-        stalker='targetEntity: #rig; initializationDotCount: 20'
+        inky-behavior='targetEntity: #rig; initializationDotCount: 10000'
         sphere-collider='objects: #camera; radius: 1;'
         starting-position='-29.7 2.5 4.754'
         geometry='primitive: box; height: 1; width: 1; depth: 1;'
@@ -157,7 +160,7 @@
       <a-entity
         id='pinky-ghost'
         mixin='ghost-behavior'
-        stalker='targetEntity: #rig; initializationDotCount: 10'
+        pinky-behavior='targetEntity: #rig; initializationDotCount: 100'
         sphere-collider='objects: #camera; radius: 1;'
         starting-position='-29.7 2.5 0.817'
         geometry='primitive: box; height: 1; width: 1; depth: 1;'
@@ -172,7 +175,7 @@
       <a-entity
         id='clyde-ghost'
         mixin='ghost-behavior'
-        stalker='targetEntity: #rig; initializationDotCount: 30'
+        clyde-behavior='targetEntity: #rig; initializationDotCount: 0'
         sphere-collider='objects: #camera; radius: 1;'
         starting-position='-29.7 2.5 -2.99'
         geometry='primitive: box; height: 1; width: 1; depth: 1;'
