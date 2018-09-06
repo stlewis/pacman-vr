@@ -1,42 +1,33 @@
 AFRAME.registerSystem('pac-maze', {
 
   init: function() {
-    //this.el.addEventListener('model-loaded', this.initializeFrameArray());
-  },
-
-  update: function() {
     this.initializeFrameArray();
   },
 
   initializeFrameArray: function() {
-    var self        = this;
-    this.frameArray = []
-    var lastX       = -58
+    var self              = this;
+    this.frameArray       = []
+    var lastX             = -58
+    var traversableFrames = this.getTraversableFrames();
 
     for(j = 0; j <= 33; j++){
-      var xPos     = lastX + 2
+      xPos     = lastX + 2
       lastX        = xPos
-      var frameRow = [ {position: {x: xPos, y: 0, z: 28 } } ];
+      frameRow = [ {position: {x: xPos, y: 0, z: 28 } } ];
 
       for(i = 1; i < 28; i++){
         lastZ = frameRow[i - 1].position.z
         thisZ = lastZ - 2
 
         thisPosition = { x: xPos, y: 1, z: thisZ }
-        navAgent = this.el.systems.nav
-
-        vec3Pos = new THREE.Vector3(thisPosition.x, thisPosition.y, thisPosition.z)
-        group = navAgent.getGroup(vec3Pos);
-
-        console.log("Group:", group)
-
-        isTraversable = false
-        path = navAgent.getPath(thisPosition, thisPosition, group) || [];
+        isTraversable = traversableFrames.filter(function(frame){ return frame.x == j && frame.y == i   }).length == 1
         frameRow.push({ position: thisPosition, traversable: isTraversable })
       }
 
       this.frameArray.push(frameRow);
+
     }
+
   },
 
   framesWithin: function(targetDistance, centerFrame){
@@ -90,6 +81,54 @@ AFRAME.registerSystem('pac-maze', {
     }
 
     return frameCandidate
+  },
+
+
+  getTraversableFrames: function() {
+    traversable = []
+
+    x_traversables = [
+      [],
+      [1,2,3,4,5,6,7,8,9,10,11,12,15,16,17,18,19,20,21,22,23,24,25,26],
+      [1,6,12,15,21,26],
+      [1,6,12,15,21,26],
+      [1,6,12,15,21,26],
+      [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
+      [1,6,9,18,21,26],
+      [1,6,9,18,21,26],
+      [1,2,3,4,5,6,9,10,11,12,15,16,17,18,21,22,23,24,25,26],
+      [6,12,15,21],
+      [6,12,15,21],
+      [6,9,10,11,12,13,14,15,16,17,18,21],
+      [6,9,18,21],
+      [6,9,18,21],
+      [0,1,2,3,4,5,6,7,8,9,18,19,20,21,22,23,24,25,26,27],
+      [6,9,18,21],
+      [6,9,18,21],
+      [6,9,10,11,12,13,14,15,16,17,18,21],
+      [6,9,18,21],
+      [6,9,18,21],
+      [1,2,3,4,5,6,7,8,9,10,11,12,15,16,17,18,19,20,21,22,23,24,25,26],
+      [1,6,12,15,21,26],
+      [1,6,12,15,21,26], // 22
+      [1,2,3,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21, 24,25,26],
+      [3,6,9,18,21,24],
+      [3,6,9,18,21,24],
+      [1,2,3,4,5,6,9,10,11,12,15,16,17,18,21,22,23,24,25,26],
+      [1,12,15,26], // 27
+      [1,12,15,26],
+      [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]
+    ]
+
+    for(y = 0; y <= 29; y++){
+      x_vals = x_traversables[y];
+
+      for(i = 0; i < x_vals.length; i++){
+        traversable.push({ x: x_vals[i], y: y })
+      }
+    }
+
+    return traversable
   }
 
 
