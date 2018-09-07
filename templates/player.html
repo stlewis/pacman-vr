@@ -1,0 +1,30 @@
+<!--Player-->
+
+<a-entity id="rig"
+  teleportable
+  movement-controls="speed: 0.1; constrainToNavMesh: true;"
+  position="-23.9 0 0.739">
+
+
+  <a-entity gearvr-controls>
+    <a-entity fps-counter></a-entity>
+  </a-entity>
+
+  <a-entity camera
+            pac-man
+            id='camera'
+            sphere-collider='objects: a-pac-dot; radius: 1;'
+            geometry='primitive: sphere;'
+            look-controls='pointerLockEnabled: true;'
+            position="0 1.6 0">
+
+    <a-entity id='score-wrapper' visible='false'>
+      <a-gui-flex-container panel-color='#666666;' opacity='0.5'  position='0 0.25 -1.5' width='0.5' height='0.5' rotation='-35 0 0'>
+        <a-text value='Score:' anchor='left' width='1.5' position='-0.25 0 0'></a-text>
+        <a-text id='score' value='0' anchor='left' width='1.5' position='-0.025 0 0'></a-text>
+      </a-gui-flex-container>
+    </a-entity>
+
+  </a-entity>
+</a-entity>
+
