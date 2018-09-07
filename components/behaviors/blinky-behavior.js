@@ -8,19 +8,37 @@ AFRAME.registerComponent('blinky-behavior', {
 
   init: function () {
     this.target = document.querySelector(this.data.targetEntity);
+    this.pacMaze = this.el.sceneEl.systems['pac-maze'];
   },
 
   tick: function() {
     // Blinky doesn't give a fuck...Blinky is chasing the player directly
-    return true;
     if(!this.target) return;
-    var targetLocation  = this.target.object3D.position;
-    var sceneEl         = this.el.sceneEl;
-    var currentDotCount = sceneEl.components.scoreboard.globalDotCounter;
 
-    var isActive = currentDotCount >= this.data.initializationDotCount;
+    sceneEl         = this.el.sceneEl;
+    currentDotCount = sceneEl.components.scoreboard.globalDotCounter;
 
-    this.el.setAttribute('nav-agent', { active: isActive, destination: targetLocation })
+    isActive = currentDotCount >= this.data.initializationDotCount;
+
+    targetLocation  = this.target.object3D.position;
+    pacFrame        = this.pacMaze.frameFromPosition(targetLocation);
+    myFrame         = this.pacMaze.frameFromPosition(this.el.object3D.position)
+
+
+    console.log("Blinky Traverse", myFrame.traversable)
+
+    if(!myFrame.traversable) {
+      newFrame = this.pacMaze.framesWithin(1, myFrame).filter(function(frame){ return frame.traversable })
+
+      this.el.setAttribute('position', newFrame.position);
+      this.el.setAttribute('nav-agent', {active: false})
+    }
+
+
+    if(!pacFrame) return true;
+
+    this.el.setAttribute('nav-agent', { active: isActive, destination:  pacFrame.position })
+
   }
 
 });

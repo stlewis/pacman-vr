@@ -9,6 +9,7 @@ AFRAME.registerComponent('clyde-behavior', {
   init: function () {
     this.target = document.querySelector(this.data.targetEntity);
     this.pacMaze = this.el.sceneEl.systems['pac-maze'];
+    this.targetFrame = null;
   },
 
   tick: function() {
@@ -27,9 +28,20 @@ AFRAME.registerComponent('clyde-behavior', {
 
     if(candidateFrames.length < 1) return true;
 
-    finalFrame = candidateFrames[0] //candidateFrames.length == 1 ? candidateFrames[0] : candidateFrames[Math.floor(Math.random() * candidateFrames.length)]
+    finalFrame = candidateFrames.length == 1 ? candidateFrames[0] : candidateFrames[Math.floor(Math.random() * candidateFrames.length)]
 
-    this.el.setAttribute('nav-agent', { active: isActive, destination: finalFrame.position })
+    if(this.targetFrame == null || candidateFrames.indexOf(this.targetFrame) == -1) this.targetFrame = finalFrame;
+
+    myFrame = this.pacMaze.frameFromPosition(this.el.object3D.position)
+
+    if(!myFrame.traversable) {
+      newFrame = this.pacMaze.framesWithin(1, myFrame).filter(function(frame){ return frame.traversable })
+
+      this.el.setAttribute('position', newFrame.position);
+      this.el.setAttribute('nav-agent', {active: false})
+    }
+
+    this.el.setAttribute('nav-agent', { active: isActive, destination: this.targetFrame.position })
   }
 
 });

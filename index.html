@@ -40,7 +40,7 @@
         <a-mixin id='wall'
                  material='color: blue; roughness: 0.7; metalness: 0.2;'
                  geometry='height: 0.25;'>
-          <a-mixin id='ghost-dims' scale='0.12 0.12 0.12'><a-mixin>
+          <a-mixin id='ghost-dims' scale='0.2 0.2 0.2'><a-mixin>
           <a-mixin id='ghost-behavior' nav-agent='speed: 1.5;'></a-mixin>
       </a-assets>
       <a-sky src='#sky'></a-sky>
@@ -113,7 +113,7 @@
                   id='camera'
                   sphere-collider='objects: a-pac-dot; radius: 1;'
                   geometry='primitive: sphere;'
-                  look-controls
+                  look-controls='pointerLockEnabled: true;'
                   position="0 1.6 0">
 
           <a-entity id='score-wrapper' visible='false'>
@@ -130,61 +130,61 @@
       <a-entity
         id='blinky-ghost'
         mixin='ghost-behavior'
-        blinky-behavior='targetEntity: #rig; initializationDotCount: 1000'
-        starting-position='-35.5 2.5 1.133'
+        blinky-behavior='targetEntity: #rig; initializationDotCount: 0;'
+        starting-position='-35.5 0 1.133'
         sphere-collider='objects: #camera; radius: 1;'
         geometry='primitive: box; height: 1; width: 1; depth: 1;'
-        material="transparent: true; opacity: 1; color: red;"
+        material="transparent: true; opacity: 0; color: red;"
         position='-35.5 0 1.133'>
-          <!--<a-gltf-model src='#blinky'-->
-                        <!--position='0 1.6 0'-->
-                        <!--mixin='ghost-dims'-->
-                        <!--></a-gltf-model>-->
+          <a-gltf-model src='#blinky'
+                        position='0 0 0'
+                        mixin='ghost-dims'
+                        ></a-gltf-model>
       </a-entity>
 
       <a-entity
         id='inky-ghost'
         mixin='ghost-behavior'
-        inky-behavior='targetEntity: #rig; initializationDotCount: 10000'
+        inky-behavior='targetEntity: #rig; initializationDotCount: 30;'
         sphere-collider='objects: #camera; radius: 1;'
-        starting-position='-29.7 2.5 4.754'
+        starting-position='-29.7 0 4.754'
         geometry='primitive: box; height: 1; width: 1; depth: 1;'
-        material="transparent: true; opacity: 1; color: aqua;"
-        position='-29.7 1.6 4.754'>
-          <!--<a-gltf-model src='#inky'-->
-                        <!--position='0 1.6 0'-->
-                        <!--mixin='ghost-dims'-->
-                        <!--></a-gltf-model>-->
+        material="transparent: true; opacity: 0; color: aqua;"
+        position='-29.7 0 4.754'>
+          <a-gltf-model src='#inky'
+                        position='0 0 0'
+                        mixin='ghost-dims'
+                        ></a-gltf-model>
       </a-entity>
 
       <a-entity
         id='pinky-ghost'
         mixin='ghost-behavior'
-        pinky-behavior='targetEntity: #rig; initializationDotCount: 100'
+        pinky-behavior='targetEntity: #rig; initializationDotCount: 0'
         sphere-collider='objects: #camera; radius: 1;'
-        starting-position='-29.7 2.5 0.817'
+        starting-position='-29.7 0 0.817'
         geometry='primitive: box; height: 1; width: 1; depth: 1;'
-        material="transparent: true; opacity: 1; color: pink;"
-        position='-29.7 2.5 0.817'>
-          <!--<a-gltf-model src='#pinky'-->
-                        <!--position='0 1.6 0'-->
-                        <!--mixin='ghost-dims'-->
-                        <!--></a-gltf-model>-->
+        material="transparent: true; opacity: 0; color: pink;"
+        position='-29.7 0 0.817'>
+          <a-gltf-model src='#pinky'
+                        position='0 0 0'
+                        mixin='ghost-dims'
+                        ></a-gltf-model>
       </a-entity>
 
       <a-entity
         id='clyde-ghost'
         mixin='ghost-behavior'
-        clyde-behavior='targetEntity: #rig; initializationDotCount: 0'
+        clyde-behavior='targetEntity: #rig; initializationDotCount: 80;'
         sphere-collider='objects: #camera; radius: 1;'
-        starting-position='-29.7 2.5 -2.99'
+        starting-position='-29.7 0 -2.99'
         geometry='primitive: box; height: 1; width: 1; depth: 1;'
-        material="transparent: true; opacity: 1; color: orange;"
-        position='-29.7 2.5 -2.99'>
-          <!--<a-gltf-model src='#clyde'-->
-                        <!--position='0 1.6 0'-->
-                        <!--mixin='ghost-dims'-->
-                        <!--></a-gltf-model>-->
+        material="transparent: true; opacity: 0; color: orange;"
+        position='-29.7 0 -2.99'>
+          <a-gltf-model src='#clyde'
+                        position='0 0 0'
+                        mixin='ghost-dims'
+                        ></a-gltf-model>
       </a-entity>
 
 

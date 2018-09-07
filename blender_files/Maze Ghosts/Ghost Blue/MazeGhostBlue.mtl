@@ -1,0 +1,8 @@
+newmtl MGhost_text
+Ka 0.7843137 0.7843137 0.7843137
+Kd 0.7843137 0.7843137 0.7843137
+d 1
+Tr 1
+map_Ka MGhost_text.png
+map_Kd MGhost_text.png
+map_d MGhost_text.png

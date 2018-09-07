@@ -7,8 +7,9 @@ AFRAME.registerComponent('pinky-behavior', {
   },
 
   init: function () {
-    this.target  = document.querySelector(this.data.targetEntity);
-    this.pacMaze = this.el.sceneEl.systems['pac-maze'];
+    this.target      = document.querySelector(this.data.targetEntity);
+    this.pacMaze     = this.el.sceneEl.systems['pac-maze'];
+    this.targetFrame = null
   },
 
   tick: function() {
@@ -47,9 +48,22 @@ AFRAME.registerComponent('pinky-behavior', {
     // If pacman is facing west, choose a candidate with an X more than pac's position, or a Z less than pac's position
     if(facingWest) facingFrames = candidateFrames.filter(function(frame){ return frame.position.x >= targetLocation.x  || frame.position.z <= targetLocation.z });
 
-    finalFrame = facingFrames[0]
+    finalFrame = facingFrames.length == 1 ? facingFrames[0] : facingFrames[Math.floor(Math.random() * facingFrames.length)]
 
-    if(finalFrame) this.el.setAttribute('nav-agent', { active: isActive, destination: finalFrame.position })
+    if(this.targetFrame == null || facingFrames.indexOf(this.targetFrame) == -1) this.targetFrame = finalFrame;
+
+    myFrame = this.pacMaze.frameFromPosition(this.el.object3D.position)
+
+    if(!myFrame.traversable) {
+      newFrame = this.pacMaze.framesWithin(1, myFrame).filter(function(frame){ return frame.traversable })
+
+      this.el.setAttribute('position', newFrame.position);
+      this.el.setAttribute('nav-agent', {active: false})
+    }
+
+
+
+    if(finalFrame) this.el.setAttribute('nav-agent', { active: isActive, destination: this.targetFrame.position })
   }
 
 });
