@@ -2,51 +2,51 @@
 <!-- Implies 2 sq meters per frame -->
 
 <!-- Portals -->
-<a-entity id='left-portal' geometry="primitive: plane; height: 4; width: 2;"
-                            position='-30 1.6 28'
-                            rotation='0 180 0'
+<a-entity id='left-portal' geometry="primitive: plane; height: 4; width: 2.1;"
+                            position='-28.1 2.183 -30.1'
+                            rotation='0 90 0'
                             material='shader:gif; src: url(./images/portal.gif)'></a-entity>
 
-<a-entity id='left-portal' geometry="primitive: plane; height: 4; width: 2;"
-                            position='-30 1.6 -26'
-                            rotation='0 0 0'
+<a-entity id='left-portal' geometry="primitive: plane; height: 4; width: 2.1;"
+                            position='25.97 2.183 -30.1'
+                            rotation='0 -90 0'
                             material='shader:gif; src: url(./images/portal.gif)'></a-entity>
 
 <!--Scoreboards-->
 <!-- Top  -->
 <a-gui-flex-container
                       id='top-score'
-                      position='-62. 5.528 3.453'
-                      rotation='0 90 0'>
-  <a-text width='40' value="Score: "><a-text>
-  <a-text class='scorevalue' width='40' value="0" position='5.2 0 0 '><a-text>
+                      position='2.156 4.745 3.453'
+                      rotation='0 180 0'>
+  <a-text width='40' value="Score: "></a-text>
+  <a-text class='scorevalue' width='40' value="0" position='5.2 0 0 '></a-text>
 </a-gui-flex-container>
 
 <!-- Bottom -->
 <a-gui-flex-container
                       id='bottom-score'
-                      position='2.386 5.528 0.945'
-                      rotation='0 -90 0'>
-  <a-text width='40' value="Score: "><a-text>
-  <a-text class='scorevalue' width='40' value="0" position='5.2 0 0 '><a-text>
+                      position='2.386 4.745 -59'
+                      rotation='0 0 0'>
+  <a-text width='40' value="Score: "></a-text>
+  <a-text class='scorevalue' width='40' value="0" position='5.2 0 0 '></a-text>
 </a-gui-flex-container>
 
 <!-- Left -->
 <a-gui-flex-container
                       id='left-score'
-                      position='-27.7 5.528 31.44'
-                      rotation='0 180 0'>
-  <a-text width='40' value="Score: "><a-text>
-  <a-text class='scorevalue' width='40' value="0" position='5.2 0 0 '><a-text>
+                      position='-27.7 5.528 -26.3'
+                      rotation='0 90 0'>
+  <a-text width='40' value="Score: "></a-text>
+  <a-text class='scorevalue' width='40' value="0" position='5.2 0 0 '></a-text>
 </a-gui-flex-container>
 
 <!-- Right -->
 <a-gui-flex-container
                       id='right-score'
-                      position='-33.2 5.528 -28.44'
-                      rotation='0 0 0'>
-  <a-text width='40' value="Score: "><a-text>
-  <a-text class='scorevalue' width='40' value="0" position='5.2 0 0 '><a-text>
+                      position='28.09 5.528 -33.1'
+                      rotation='0 -90 0'>
+  <a-text width='40' value="Score: "></a-text>
+  <a-text class='scorevalue' width='40' value="0" position='5.2 0 0 '></a-text>
 </a-gui-flex-container>
 
 
@@ -367,7 +367,7 @@
        depth='4'
        rotation='0 90 0'></a-box>
 
-<a-gltf-model id='nav-mesh' nav-mesh src='#navmesh' rotation='0 -90 0' position='0 0.0 0' visible='true'></a-gltf-model>
-<a-plane id='ground' height='100' width='100' material="color: black; metalness: 0.9;" rotation='-90 0 0' position='-29 0 -0.45'></a-plane>
+<a-gltf-model id='nav-mesh' nav-mesh src='#navmesh' rotation='0 -90 0' position='0 0.0 0' visible='false'></a-gltf-model>
+<a-plane id='ground' height='100' width='100' material="color: black; metalness: 0.9;" rotation='-90 0 0' position='-0.23 0 -29.9'></a-plane>
 
 
