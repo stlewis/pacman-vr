@@ -26,8 +26,8 @@ AFRAME.registerSystem('pac-maze', {
 
       this.frameArray.push(frameRow);
 
-    }
 
+    }
   },
 
   framesWithin: function(targetDistance, centerFrame){
