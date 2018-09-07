@@ -10,9 +10,20 @@
     <script src='https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js'></script>
     <script src="https://unpkg.com/aframe-fps-counter-component@^1.0.1/dist/aframe-fps-counter-component.min.js"></script>
 
+    <!-- Custom Primitives -->
+    <script src='./primitives/pac-dot.js'></script>
+
+
+    <!-- Custom Components -->
+    <script src='./components/scoreboard.js'></script>
+    <script src='./components/pac-man.js'></script>
+    <script src='./components/teleportable.js'></script>
+    <script src='./components/dot.js'></script>
+
+
   </head>
   <body>
-    <a-scene>
+    <a-scene scoreboard>
       <a-assets>
         <img id='sky' src='./images/sky.jpg'>
         <img id='portal' src='./images/portal.gif'>
