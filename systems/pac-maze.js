@@ -19,7 +19,7 @@ AFRAME.registerSystem('pac-maze', {
         lastZ = frameRow[i - 1].position.z
         thisZ = lastZ - 2
 
-        thisPosition = { x: xPos, y: 0, z: thisZ }
+        thisPosition = { x: xPos, y: 0.28, z: thisZ }
         isTraversable = traversableFrames.filter(function(frame){ return frame.x == i && frame.y == j   }).length == 1
         frameRow.push({ position: thisPosition, traversable: isTraversable, x: i, y: j })
       }
@@ -28,16 +28,20 @@ AFRAME.registerSystem('pac-maze', {
     }
   },
 
-  framesWithin: function(targetDistance, centerFrame){
+  framesWithin: function(targetDistance, centerFrame, onlyTraversable){
     frames = [];
+    onlyTraversable = onlyTraversable ? true : false;
 
     for(j = 0; j < this.frameArray.length; j++){
       row = this.frameArray[j];
 
       for(i = 0; i < row.length; i++){
-        targetFrame = this.frameArray[j][i];
-        distance = this.distanceBetween({x: targetFrame.x, y: targetFrame.y}, {x: centerFrame.x, y: centerFrame.y})
-        if(distance <= targetDistance && !this._sameFrame(centerFrame, targetFrame)) frames.push(targetFrame);
+        targetFrame     = this.frameArray[j][i];
+        distance        = this.distanceBetween({x: targetFrame.x, y: targetFrame.y}, {x: centerFrame.x, y: centerFrame.y})
+        traversableCond = targetFrame.traversable == onlyTraversable
+        if(distance <= targetDistance && !this._sameFrame(centerFrame, targetFrame) && traversableCond){
+          frames.push(targetFrame);
+        }
       }
     }
 
