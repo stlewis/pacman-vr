@@ -25,8 +25,6 @@ AFRAME.registerSystem('pac-maze', {
       }
 
       this.frameArray.push(frameRow);
-
-
     }
   },
 
@@ -38,14 +36,24 @@ AFRAME.registerSystem('pac-maze', {
 
       for(i = 0; i < row.length; i++){
         targetFrame = this.frameArray[j][i];
-
-        distance = this.distanceBetween({x: i, y: j}, {x: centerFrame.x, y: centerFrame.y})
-
-        if(distance <= targetDistance && targetFrame != centerFrame) frames.push(targetFrame);
+        distance = this.distanceBetween({x: targetFrame.x, y: targetFrame.y}, {x: centerFrame.x, y: centerFrame.y})
+        if(distance <= targetDistance && !this._sameFrame(centerFrame, targetFrame)) frames.push(targetFrame);
       }
     }
 
     return frames;
+  },
+
+  _sameFrame: function(a, b){
+    ax = a.x
+    bx = b.x
+    ay = a.y
+    by = b.y
+
+    if(ax != bx) return false;
+    if(ay != by) return false;
+
+    return true;
   },
 
   distanceBetween: function(targetFrame, centerFrame){
@@ -60,6 +68,19 @@ AFRAME.registerSystem('pac-maze', {
     result = xDistance + yDistance
     return result
 
+  },
+
+  // Determine which cardinal direction to travel in order to reach target from origin
+  directionFrom: function(origin, target){
+    isNorth = origin.y < target.y && origin.x == target.x;
+    isSouth = origin.y > target.y && origin.x == target.x;
+    isEast  = origin.x < target.x && target.y == origin.y
+    isWest  = origin.x > target.x && target.y == origin.y
+
+    if(isNorth) return 'North';
+    if(isSouth) return 'South';
+    if(isEast) return 'East';
+    if(isWest) return 'West';
   },
 
   frameFromPosition: function(targetPosition) {
@@ -83,6 +104,19 @@ AFRAME.registerSystem('pac-maze', {
     }
 
     return frameCandidate
+  },
+
+  nextFrameByDir(currentFrame, direction) {
+
+    candidateFrames = this.framesWithin(1, currentFrame);
+
+    nextFrame       = null;
+
+    if(direction == 'West')  nextFrame = candidateFrames.filter(function(cf){
+      return cf.x < currentFrame.x
+    });
+
+    return nextFrame;
   },
 
 

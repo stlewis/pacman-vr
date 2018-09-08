@@ -1,7 +1,6 @@
 AFRAME.registerComponent('scoreboard', {
 
   init: function() {
-    console.log("Scoreboard loaded")
     this.registerEventListeners = this.registerEventListeners.bind(this);
 
     this.registerEventListeners();

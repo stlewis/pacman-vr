@@ -1,60 +1,69 @@
 <a-entity
   id='blinky-ghost'
-  mixin='ghost-behavior'
-  blinky-behavior='targetEntity: #rig; initializationDotCount: 0;'
-  starting-position='-35.5 0 1.133'
+  mixin='ghost-speed'
+  maze-agent
+  ghost-behavior="ghostName: blinky;"
+  starting-position='-36 0 2'
   sphere-collider='objects: #camera; radius: 1;'
   geometry='primitive: box; height: 1; width: 1; depth: 1;'
   material="transparent: true; opacity: 0; color: red;"
-  position='-35.5 0 1.133'>
+  position='-36 0 2'
+  rotation='0 180 0'>
     <a-gltf-model src='#blinky'
-                  position='0 0 0'
+                  position='0 0.3 0'
+                  rotation='0 180 0'
                   mixin='ghost-dims'
                   ></a-gltf-model>
 </a-entity>
 
-<a-entity
-  id='inky-ghost'
-  mixin='ghost-behavior'
-  inky-behavior='targetEntity: #rig; initializationDotCount: 30;'
-  sphere-collider='objects: #camera; radius: 1;'
-  starting-position='-29.7 0 4.754'
-  geometry='primitive: box; height: 1; width: 1; depth: 1;'
-  material="transparent: true; opacity: 0; color: aqua;"
-  position='-29.7 0 4.754'>
-    <a-gltf-model src='#inky'
-                  position='0 0 0'
-                  mixin='ghost-dims'
-                  ></a-gltf-model>
-</a-entity>
+<!--<a-entity-->
+  <!--id='inky-ghost'-->
+  <!--mixin='ghost-speed'-->
+  <!--inky-behavior='targetEntity: #rig; initializationDotCount: 30;'-->
+  <!--sphere-collider='objects: #camera; radius: 1;'-->
+  <!--starting-position='-29.7 0 4.754'-->
+  <!--geometry='primitive: box; height: 1; width: 1; depth: 1;'-->
+  <!--material="transparent: true; opacity: 0; color: aqua;"-->
+  <!--position='-29.7 0 4.754'-->
+  <!--rotation='0 180 0'>-->
+    <!--<a-gltf-model src='#inky'-->
+                  <!--position='0 0 0'-->
+                  <!--rotation='0 180 0'-->
+                  <!--mixin='ghost-dims'-->
+                  <!--></a-gltf-model>-->
+<!--</a-entity>-->
 
-<a-entity
-  id='pinky-ghost'
-  mixin='ghost-behavior'
-  pinky-behavior='targetEntity: #rig; initializationDotCount: 0'
-  sphere-collider='objects: #camera; radius: 1;'
-  starting-position='-29.7 0 0.817'
-  geometry='primitive: box; height: 1; width: 1; depth: 1;'
-  material="transparent: true; opacity: 0; color: pink;"
-  position='-29.7 0 0.817'>
-    <a-gltf-model src='#pinky'
-                  position='0 0 0'
-                  mixin='ghost-dims'
-                  ></a-gltf-model>
-</a-entity>
+<!--<a-entity-->
+  <!--id='pinky-ghost'-->
+  <!--mixin='ghost-speed'-->
+  <!--pinky-behavior='targetEntity: #rig; initializationDotCount: 0'-->
+  <!--sphere-collider='objects: #camera; radius: 1;'-->
+  <!--starting-position='-29.7 0 0.817'-->
+  <!--geometry='primitive: box; height: 1; width: 1; depth: 1;'-->
+  <!--material="transparent: true; opacity: 0; color: pink;"-->
+  <!--position='-29.7 0 0.817'-->
+  <!--rotation='0 180 0'>-->
+    <!--<a-gltf-model src='#pinky'-->
+                  <!--position='0 0 0'-->
+                  <!--rotation='0 180 0'-->
+                  <!--mixin='ghost-dims'-->
+                  <!--></a-gltf-model>-->
+<!--</a-entity>-->
 
-<a-entity
-  id='clyde-ghost'
-  mixin='ghost-behavior'
-  clyde-behavior='targetEntity: #rig; initializationDotCount: 80;'
-  sphere-collider='objects: #camera; radius: 1;'
-  starting-position='-29.7 0 -2.99'
-  geometry='primitive: box; height: 1; width: 1; depth: 1;'
-  material="transparent: true; opacity: 0; color: orange;"
-  position='-29.7 0 -2.99'>
-    <a-gltf-model src='#clyde'
-                  position='0 0 0'
-                  mixin='ghost-dims'
-                  ></a-gltf-model>
-</a-entity>
+<!--<a-entity-->
+  <!--id='clyde-ghost'-->
+  <!--mixin='ghost-speed'-->
+  <!--clyde-behavior='targetEntity: #rig; initializationDotCount: 80;'-->
+  <!--sphere-collider='objects: #camera; radius: 1;'-->
+  <!--starting-position='-29.7 0 -2.99'-->
+  <!--geometry='primitive: box; height: 1; width: 1; depth: 1;'-->
+  <!--material="transparent: true; opacity: 0; color: orange;"-->
+  <!--position='-29.7 0 -2.99'-->
+  <!--rotation='0 180 0'>-->
+    <!--<a-gltf-model src='#clyde'-->
+                  <!--position='0 0 0'-->
+                  <!--rotation='0 180 0'-->
+                  <!--mixin='ghost-dims'-->
+                  <!--></a-gltf-model>-->
+<!--</a-entity>-->
 
