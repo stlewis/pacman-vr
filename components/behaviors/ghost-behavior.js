@@ -10,33 +10,34 @@ AFRAME.registerComponent('ghost-behavior', {
     initializationDotCount: {type: 'number', default: 0 }
   },
 
-  init: function () {
+  init: function() {
     this.pacMaze     = this.el.sceneEl.systems['pac-maze'];
     this.pacMan      = document.querySelector('#rig') // For Pac-Man's maze agent
+    this.shouldUpdateNavDestination = true;
 
     this.el.addEventListener('frameChange', this.handleFrameChange.bind(this));
   },
 
-  tick: function(){
-    this.setTargetFrame();
-    this.updateNavDestination();
+  tick: function() {
+    if(this.shouldUpdateNavDestination) {
+      this.shouldUpdateNavDestination = false;
+      this.updateNavDestination();
+    }
   },
 
   handleFrameChange: function(e){
-    this.setTargetFrame();
-    this.updateNavDestination();
+    this.shouldUpdateNavDestination = true;
   },
 
   updateNavDestination: function(){
     currentDotCount  = this.el.sceneEl.components.scoreboard.globalDotCounter;
     isActive         = currentDotCount >= this.data.initializationDotCount
     destinationFrame = this.calculateDestinationFrameToo();
-    if(!destinationFrame) return false
+    //if(!destinationFrame) return false
     this.el.setAttribute('nav-agent', {active:  isActive, destination: destinationFrame.position  })
   },
 
   setTargetFrame: function(){
-    // Figure out where we want to go.
     switch(this.data.ghostName){
       case 'blinky':
         this.targetFrame = this.blinkyTargetFrame();
@@ -74,8 +75,8 @@ AFRAME.registerComponent('ghost-behavior', {
     myFrame         = this.pacMaze.frameFromPosition(this.el.object3D.position);
     candidateFrames = this.pacMaze.framesWithin(1, myFrame, true);
     candidateFrames = candidateFrames.filter(function(cf){
-      console.log(self.el.components);
       myPreviousFrame = self.el.components['maze-agent'].previousFrame;
+      if(!myPreviousFrame) return true
       return myPreviousFrame && !self.pacMaze._sameFrame(cf, myPreviousFrame)
     });
 
@@ -97,9 +98,11 @@ AFRAME.registerComponent('ghost-behavior', {
   },
 
   closestFrameToTarget: function(candidateFrames) {
+    this.setTargetFrame();
     closestFrame         = candidateFrames[0];
     bestDistanceToTarget = Infinity;
     target               = this.targetFrame;
+
     targetV3             = new THREE.Vector3(target.position.x, target.position.y, target.position.z);
     preferenceScale      = ['East', 'South', 'West', 'North'];
 
@@ -133,7 +136,9 @@ AFRAME.registerComponent('ghost-behavior', {
   },
 
   blinkyTargetFrame: function() {
-    return this.pacMan.components['maze-agent'].currentFrame;
+    position = document.querySelector('#rig').object3D.position
+    frame    = this.pacMaze.frameFromPosition(position)
+    return frame;
   },
 
   pinkyTargetFrame: function(){
