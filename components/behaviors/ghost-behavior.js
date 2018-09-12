@@ -14,28 +14,30 @@ AFRAME.registerComponent('ghost-behavior', {
     this.pacMaze     = this.el.sceneEl.systems['pac-maze'];
     this.pacMan      = document.querySelector('#rig') // For Pac-Man's maze agent
     this.shouldUpdateNavDestination = true;
+    this.destinationFrame           = null;
 
-    this.el.addEventListener('frameChange', this.handleFrameChange.bind(this));
+    this.el.addEventListener('nav-end', this.handleNavEnd.bind(this));
   },
 
   tick: function() {
+    currentDotCount  = this.el.sceneEl.components.scoreboard.globalDotCounter;
+    isActive         = currentDotCount >= this.data.initializationDotCount
+
     if(this.shouldUpdateNavDestination) {
       this.shouldUpdateNavDestination = false;
-      this.updateNavDestination();
+      this.destinationFrame = this.calculateDestinationFrameToo();
+      this.el.setAttribute('nav-agent', {active:  isActive, destination: this.destinationFrame.position  })
+    }else{
+      this.el.setAttribute('nav-agent', {active:  isActive })
     }
+
   },
 
-  handleFrameChange: function(e){
+  handleNavEnd: function(e) {
+    console.log("I love cookies");
     this.shouldUpdateNavDestination = true;
   },
 
-  updateNavDestination: function(){
-    currentDotCount  = this.el.sceneEl.components.scoreboard.globalDotCounter;
-    isActive         = currentDotCount >= this.data.initializationDotCount
-    destinationFrame = this.calculateDestinationFrameToo();
-    //if(!destinationFrame) return false
-    this.el.setAttribute('nav-agent', {active:  isActive, destination: destinationFrame.position  })
-  },
 
   setTargetFrame: function(){
     switch(this.data.ghostName){
@@ -99,14 +101,14 @@ AFRAME.registerComponent('ghost-behavior', {
 
   closestFrameToTarget: function(candidateFrames) {
     this.setTargetFrame();
-    closestFrame         = candidateFrames[0];
-    bestDistanceToTarget = Infinity;
+    var closestFrame         = candidateFrames[0];
+    var bestDistanceToTarget = Infinity;
     target               = this.targetFrame;
 
     targetV3             = new THREE.Vector3(target.position.x, target.position.y, target.position.z);
     preferenceScale      = ['East', 'South', 'West', 'North'];
 
-    for(i = 1; i < candidateFrames.length; i++){
+    for(i = 0; i < candidateFrames.length; i++){
       candidate        = candidateFrames[i];
       candidateV3      = new THREE.Vector3(candidate.position.x, candidate.position.y, candidate.position.z)
       distanceToTarget = candidateV3.distanceTo(targetV3);
