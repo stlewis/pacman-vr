@@ -149,13 +149,12 @@ AFRAME.registerComponent('ghost-behavior', {
 
   pinkyTargetFrame: function(){
     // Pinky is aiming for the square 4 squares "in front" of Pacman, in an effort to cut him off.
-    // To determine this, we get Pac-Man's facing and position, then count out 4 squares from that point
+    // To determine this, we get Pac-Man's facing and position, then count out 4 squares from that point.
+    // It's worth noting that Pinky's target square may not be reachable, and that's okay. That said,
+    // in order to accomodate targeting, we may need to create a 4-deep set of frames around the entire
+    // maze.
     pacPos    = this.pacMan.components['maze-agent'].currentFrame;
     pacFacing = this.pacMan.components['maze-agent'].currentFacing;
-
-    console.log("PinkyWatch")
-    console.log(pacPos);
-    console.log(pacFacing);
 
     return pacPos
   },
