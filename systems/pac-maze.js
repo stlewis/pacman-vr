@@ -25,7 +25,6 @@ initializeFrameArray: function() {
 
       this.frameArray.push(frameRow);
     }
-    this.paintFrames(true);
   },
 
   paintFrames: function(traversableOnly){
