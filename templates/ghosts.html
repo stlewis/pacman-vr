@@ -1,7 +1,7 @@
 <a-entity
   id='blinky-ghost'
   mixin='ghost-speed'
-  ghost-behavior="ghostName: blinky; initializationDotCount: 100"
+  ghost-behavior="ghostName: blinky; initializationDotCount: 0"
   maze-agent
   starting-position='-36 0 2'
   sphere-collider='objects: #camera; radius: 1;'
@@ -19,7 +19,8 @@
 <!--<a-entity-->
   <!--id='inky-ghost'-->
   <!--mixin='ghost-speed'-->
-  <!--inky-behavior='targetEntity: #rig; initializationDotCount: 30;'-->
+  <!--ghost-behavior='ghostName: inky; initializationDotCount: 30;'-->
+  <!--maze-agent-->
   <!--sphere-collider='objects: #camera; radius: 1;'-->
   <!--starting-position='-29.7 0 4.754'-->
   <!--geometry='primitive: box; height: 1; width: 1; depth: 1;'-->
@@ -36,7 +37,7 @@
 <a-entity
   id='pinky-ghost'
   mixin='ghost-speed'
-  ghost-behavior='ghostName: pinky; initializationDotCount: 100'
+  ghost-behavior='ghostName: pinky; initializationDotCount: 0'
   maze-agent
   sphere-collider='objects: #camera; radius: 1;'
   starting-position='-29.7 0 0.817'
@@ -54,7 +55,7 @@
 <a-entity
   id='clyde-ghost'
   mixin='ghost-speed'
-  ghost-behavior="ghostName: clyde; initializationDotCount: 0"
+  ghost-behavior="ghostName: clyde; initializationDotCount: 60"
   maze-agent
   sphere-collider='objects: #camera; radius: 1;'
   starting-position='-29.7 0 -2.99'
