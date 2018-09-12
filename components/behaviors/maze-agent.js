@@ -20,8 +20,6 @@ AFRAME.registerComponent('maze-agent', {
     this.updateCurrentFrame();
     this.updateCurrentFacing();
 
-    console.log(this.currentFrame);
-
     agentData = {currentFrame: this.currentFrame, currentFacing: this.currentFacing }
   },
 

@@ -150,13 +150,19 @@ AFRAME.registerComponent('ghost-behavior', {
   pinkyTargetFrame: function(){
     // Pinky is aiming for the square 4 squares "in front" of Pacman, in an effort to cut him off.
     // To determine this, we get Pac-Man's facing and position, then count out 4 squares from that point.
-    // It's worth noting that Pinky's target square may not be reachable, and that's okay. That said,
-    // in order to accomodate targeting, we may need to create a 4-deep set of frames around the entire
-    // maze.
-    pacPos    = this.pacMan.components['maze-agent'].currentFrame;
-    pacFacing = this.pacMan.components['maze-agent'].currentFacing;
+    // It's worth noting that Pinky's target frame may not be traversable, but that's okay since Pinky will
+    // never actually be _aiming_ for that square when navigating. Rather, he will be making turn decisions
+    // based on _distance_ from it.
 
-    return pacPos
+    pacPos       = this.pacMan.components['maze-agent'].currentFrame;
+    pacFacing    = this.pacMan.components['maze-agent'].currentFacing;
+    squares4Away = this.pacMaze.framesAway(4, pacPos)
+    self         = this;
+
+    squaresOnPath = squares4Away.filter(function(sq){ dir = self.pacMaze.directionFrom(pacPos, sq); return dir == pacFacing  })
+
+
+    return squaresOnPath[0];
   },
 
   inkyTargetFrame: function() {

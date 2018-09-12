@@ -3,7 +3,8 @@ AFRAME.registerSystem('pac-maze', {
   init: function() {
     this.initializeFrameArray();
   },
-initializeFrameArray: function() {
+
+  initializeFrameArray: function() {
     var self              = this;
     this.frameArray       = []
     var lastX             = -66
@@ -25,6 +26,19 @@ initializeFrameArray: function() {
 
       this.frameArray.push(frameRow);
     }
+
+    pacFrame = {x: 17, y: 21 }
+    distances = []
+
+    //for(y = 0; y < this.frameArray.length; y++){
+      //for(x = 0; x < this.frameArray[y].length; x++){
+        //distances[y] =  distances[y] ? distances[y] : []
+
+        //distances[y][x] = this.distanceBetween(pacFrame, this.frameArray[y][x])
+      //}
+    //}
+
+    //console.log("Distance Matrix", distances);
   },
 
   paintFrames: function(traversableOnly){
@@ -65,6 +79,27 @@ initializeFrameArray: function() {
     }
 
     return frames;
+  },
+
+  framesAway: function(targetDistance, centerFrame, onlyTraversable) {
+    frames = [];
+    onlyTraversable = onlyTraversable ? true : false;
+
+    for(j = 0; j < this.frameArray.length; j++){
+      row = this.frameArray[j];
+
+      for(i = 0; i < row.length; i++){
+        targetFrame     = this.frameArray[j][i];
+        distance        = this.distanceBetween({x: targetFrame.x, y: targetFrame.y}, {x: centerFrame.x, y: centerFrame.y})
+        traversableCond = targetFrame.traversable == onlyTraversable
+        if(distance == targetDistance){
+          frames.push(targetFrame);
+        }
+      }
+    }
+
+    return frames;
+
   },
 
   _sameFrame: function(a, b){

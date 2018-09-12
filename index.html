@@ -29,7 +29,7 @@
 
   </head>
   <body>
-    <a-scene scoreboard pac-maze>
+    <a-scene visible='true' scoreboard pac-maze>
       <a-assets>
         <img id='sky' src='./images/sky.jpg'>
         <img id='portal' src='./images/portal.gif'>
@@ -51,7 +51,7 @@
       <!--Player-->
       <a-entity id='player' template='src: ./templates/player.html'></a-entity>
       <!-- Ghosts  -->
-      <!--<a-entity id='ghosts' template='src: ./templates/ghosts.html'></a-entity>-->
+      <a-entity id='ghosts' template='src: ./templates/ghosts.html'></a-entity>
       <!--Maze -->
       <a-entity id='maze' rotation='0 90 0' template='src: ./templates/maze.html'></a-entity>
     </a-scene>
