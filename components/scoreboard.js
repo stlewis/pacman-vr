@@ -59,18 +59,18 @@ AFRAME.registerComponent('scoreboard', {
     var inkyStart   = new THREE.Vector3;
     var clydeStart  = new THREE.Vector3;
 
-    blinkyCoords = blinky.getAttribute('starting-position').split(' ');
-    //pinkyCoords  = pinky.getAttribute('starting-position').split(' ');
+    //blinkyCoords = blinky.getAttribute('starting-position').split(' ');
+    pinkyCoords  = pinky.getAttribute('starting-position').split(' ');
     //inkyCoords   = inky.getAttribute('starting-position').split(' ');
     //clydeCoords  = clyde.getAttribute('starting-position').split(' ');
 
-    blinkyStart.x = blinkyCoords[0]
-    blinkyStart.y = blinkyCoords[1]
-    blinkyStart.z = blinkyCoords[2]
+    //blinkyStart.x = blinkyCoords[0]
+    //blinkyStart.y = blinkyCoords[1]
+    //blinkyStart.z = blinkyCoords[2]
 
-    //pinkyStart.x = pinkyCoords[0]
-    //pinkyStart.y = pinkyCoords[1]
-    //pinkyStart.z = pinkyCoords[2]
+    pinkyStart.x = pinkyCoords[0]
+    pinkyStart.y = pinkyCoords[1]
+    pinkyStart.z = pinkyCoords[2]
 
     //inkyStart.x = inkyCoords[0]
     //inkyStart.y = inkyCoords[1]
@@ -81,11 +81,11 @@ AFRAME.registerComponent('scoreboard', {
     //clydeStart.z = clydeCoords[2]
 
 
-    blinky.setAttribute('position', blinkyStart);
-    blinky.setAttribute('nav-agent', {active: false})
+    //blinky.setAttribute('position', blinkyStart);
+    //blinky.setAttribute('nav-agent', {active: false})
 
-    //pinky.setAttribute('position', pinkyStart);
-    //pinky.setAttribute('nav-agent', {active: false})
+    pinky.setAttribute('position', pinkyStart);
+    pinky.setAttribute('nav-agent', {active: false})
 
     //inky.setAttribute('position', inkyStart);
     //inky.setAttribute('nav-agent', {active: false})
@@ -98,10 +98,7 @@ AFRAME.registerComponent('scoreboard', {
   },
 
   boardClear: function(e){
-    var player = document.querySelector('a-entity[teleportable]')
-    player.object3D.position.set(-23.9, 0, 0.739)
-
-    this.resetDots() // Restore all dots.
+    this.handleDeath(); // Fundamentally the same as a death as far as the board goes. Later we tweak difficulty here.
   },
 
   resetDots: function() {

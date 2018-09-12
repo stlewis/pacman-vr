@@ -57,8 +57,19 @@ AFRAME.registerComponent('ghost-behavior', {
   },
 
   calculateDestinationFrame: function() {
-    //return {position: {x: -30, y: 0.28, z: 0} }
-    self = this;
+    self    = this;
+    myFrame = this.pacMaze.frameFromPosition(this.el.object3D.position);
+
+    // Before we attempt any further logic, we have to get the ghosts
+    // "out of the house". Blinky doesn't have this issue, but all the
+    // others do. A relatively simple way to ensure this...if the ghost
+    // isn't currently on a traversable frame, it should aim for the frame
+    // just outside the house
+
+    if(!myFrame.traversable) {
+      return self.pacMaze.frameFromPosition({ x: -36, y: 0, z: 2 })
+    }
+
     // At any given frame of the maze, a ghost has between 1 and 3
     // possible choices for which frame to move to next. Beyond this they
     // have a "target frame" which acts as their ultimate destination. In
@@ -68,7 +79,6 @@ AFRAME.registerComponent('ghost-behavior', {
     // First get a list of possible frames that are reachable from the
     // ghost's current frame. These are all traversable frames _except_
     // the one they've just vacated. Ghosts aren't allowed to move backwards
-    myFrame         = this.pacMaze.frameFromPosition(this.el.object3D.position);
     candidateFrames = this.pacMaze.framesWithin(1, myFrame, true);
     candidateFrames = candidateFrames.filter(function(cf){
       myPreviousFrame = self.el.components['maze-agent'].previousFrame;
