@@ -22,7 +22,6 @@ AFRAME.registerComponent('ghost-behavior', {
   tick: function() {
     currentDotCount  = this.el.sceneEl.components.scoreboard.globalDotCounter;
     isActive         = currentDotCount >= this.data.initializationDotCount
-    this.setTargetFrame();
 
     if(this.shouldUpdateNavDestination) {
       this.shouldUpdateNavDestination = false;
@@ -69,6 +68,8 @@ AFRAME.registerComponent('ghost-behavior', {
     if(!myFrame.traversable) {
       return self.pacMaze.frameFromPosition({ x: -36, y: 0, z: 2 })
     }
+
+    this.setTargetFrame();
 
     // At any given frame of the maze, a ghost has between 1 and 3
     // possible choices for which frame to move to next. Beyond this they
@@ -165,12 +166,28 @@ AFRAME.registerComponent('ghost-behavior', {
     return squaresOnPath[0];
   },
 
+  clydeTargetFrame: function() {
+    // Clyde's target is dependent upon where he is with relation to Pac-man. If he's further than 8 tiles from Pacman,
+    // he behaves just like Blinky. If he's within 8 tiles, he behaves as he would if he were in "scatter mode", aiming
+    // for his scatter tile, (bottom left corner)
+    pacPos   = this.pacMan.components['maze-agent'].currentFrame;
+    clydePos = this.el.components['maze-agent'].currentFrame;
+
+    console.log('Pac', pacPos)
+    console.log("Clyde", clydePos);
+    clydeDistance = this.pacMaze.distanceBetween(pacPos, clydePos);
+
+
+    return clydeDistance <= 10 ? pacPos : this.clydeScatterFrame();
+  },
+
+  clydeScatterFrame: function(){
+    return this.pacMaze.frameArray[34][4]
+  },
+
   inkyTargetFrame: function() {
 
   },
 
-  clydeTargetFrame: function() {
-
-  }
 
 });

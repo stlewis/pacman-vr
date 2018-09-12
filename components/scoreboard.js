@@ -62,7 +62,7 @@ AFRAME.registerComponent('scoreboard', {
     blinkyCoords = blinky.getAttribute('starting-position').split(' ');
     pinkyCoords  = pinky.getAttribute('starting-position').split(' ');
     //inkyCoords   = inky.getAttribute('starting-position').split(' ');
-    //clydeCoords  = clyde.getAttribute('starting-position').split(' ');
+    clydeCoords  = clyde.getAttribute('starting-position').split(' ');
 
     blinkyStart.x = blinkyCoords[0]
     blinkyStart.y = blinkyCoords[1]
@@ -76,9 +76,9 @@ AFRAME.registerComponent('scoreboard', {
     //inkyStart.y = inkyCoords[1]
     //inkyStart.z = inkyCoords[2]
 
-    //clydeStart.x = clydeCoords[0]
-    //clydeStart.y = clydeCoords[1]
-    //clydeStart.z = clydeCoords[2]
+    clydeStart.x = clydeCoords[0]
+    clydeStart.y = clydeCoords[1]
+    clydeStart.z = clydeCoords[2]
 
 
     blinky.setAttribute('position', blinkyStart);
@@ -90,8 +90,8 @@ AFRAME.registerComponent('scoreboard', {
     //inky.setAttribute('position', inkyStart);
     //inky.setAttribute('nav-agent', {active: false})
 
-    //clyde.setAttribute('position', clydeStart);
-    //clyde.setAttribute('nav-agent', {active: false})
+    clyde.setAttribute('position', clydeStart);
+    clyde.setAttribute('nav-agent', {active: false})
 
 
     player.object3D.position.set(-23.9, 0, 0.739)

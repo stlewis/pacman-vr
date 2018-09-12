@@ -25,38 +25,46 @@ AFRAME.registerSystem('pac-maze', {
       }
 
       this.frameArray.push(frameRow);
+
     }
 
-    pacFrame = {x: 17, y: 21 }
+  },
+
+  distanceMatrix: function() {
     distances = []
+    pacFrame = {x: 17, y: 21 }
 
-    //for(y = 0; y < this.frameArray.length; y++){
-      //for(x = 0; x < this.frameArray[y].length; x++){
-        //distances[y] =  distances[y] ? distances[y] : []
+    for(y = 0; y < this.frameArray.length; y++){
+      for(x = 0; x < this.frameArray[y].length; x++){
+        distances[y] =  distances[y] ? distances[y] : []
 
-        //distances[y][x] = this.distanceBetween(pacFrame, this.frameArray[y][x])
-      //}
-    //}
+        distances[y][x] = this.distanceBetween(pacFrame, this.frameArray[y][x])
+      }
+    }
 
-    //console.log("Distance Matrix", distances);
+    return distances
+  },
+
+  // Just drop an indicator on a frame -- useful for ID purposes
+  paintFrame: function(frame) {
+    position = frame.position;
+    cylinder = document.createElement('a-cylinder');
+    cylinder.setAttribute('material', 'color: red; opacity: 0.5;');
+    cylinder.setAttribute('height', 2);
+    cylinder.setAttribute('radius', 1)
+    cylinder.setAttribute('position', position);
+
+    document.querySelector("a-scene").appendChild(cylinder)
   },
 
   paintFrames: function(traversableOnly){
     for(y = 0; y < this.frameArray.length; y++){
       for(z = 0; z < this.frameArray[y].length; z++){
-        position = this.frameArray[y][z].position;
-        cylinder = document.createElement('a-cylinder');
-        cylinder.setAttribute('material', 'color: red; opacity: 0.5;');
-        cylinder.setAttribute('height', 2);
-        cylinder.setAttribute('radius', 1)
-        cylinder.setAttribute('position', position);
-
-        if(traversableOnly) {
-          if(this.frameArray[y][z].traversable) document.querySelector('a-scene').appendChild(cylinder)
+        if(traversableOnly){
+          if(this.frameArray[y][z].traversable) this.paintFrame(this.frameArray[y][z])
         }else{
-          document.querySelector('a-scene').appendChild(cylinder)
+          this.paintFrame(this.frameArray[y][z])
         }
-
       }
     }
   },
