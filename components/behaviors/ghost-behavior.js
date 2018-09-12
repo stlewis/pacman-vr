@@ -26,7 +26,7 @@ AFRAME.registerComponent('ghost-behavior', {
 
     if(this.shouldUpdateNavDestination) {
       this.shouldUpdateNavDestination = false;
-      this.destinationFrame = this.calculateDestinationFrameToo();
+      this.destinationFrame = this.calculateDestinationFrame();
       this.el.setAttribute('nav-agent', {active:  isActive, destination: this.destinationFrame.position  })
     }else{
       this.el.setAttribute('nav-agent', {active:  isActive })
@@ -57,11 +57,6 @@ AFRAME.registerComponent('ghost-behavior', {
   },
 
   calculateDestinationFrame: function() {
-    // For the _moment_ we'll let the destination frame be where ever Mr. Pac Man is.
-    return this.pacMaze.frameFromPosition(this.pacMan.object3D.position)
-  },
-
-  calculateDestinationFrameToo: function() {
     //return {position: {x: -30, y: 0.28, z: 0} }
     self = this;
     // At any given frame of the maze, a ghost has between 1 and 3
@@ -80,6 +75,7 @@ AFRAME.registerComponent('ghost-behavior', {
       if(!myPreviousFrame) return true
       return myPreviousFrame && !self.pacMaze._sameFrame(cf, myPreviousFrame)
     });
+
 
     // Now that we've narrowed our list down to only those frames that are
     // eligible for movement, we need to decide which of our options is the
@@ -136,14 +132,23 @@ AFRAME.registerComponent('ghost-behavior', {
   },
 
   blinkyTargetFrame: function() {
-    position = document.querySelector('#rig').object3D.position
-    frame    = this.pacMaze.frameFromPosition(position)
+    // Blinky is hardcore. Blinky is headed straight for Pacman.
+    frame  = this.pacMan.components['maze-agent'].currentFrame;
     return frame;
   },
 
   pinkyTargetFrame: function(){
+    // Pinky is aiming for the square 4 squares "in front" of Pacman, in an effort to cut him off.
+    // To determine this, we get Pac-Man's facing and position, then count out 4 squares from that point
+    pacPos    = this.pacMan.components['maze-agent'].currentFrame;
+    pacFacing = this.pacMan.components['maze-agent'].currentFacing;
 
-   },
+    console.log("PinkyWatch")
+    console.log(pacPos);
+    console.log(pacFacing);
+
+    return pacPos
+  },
 
   inkyTargetFrame: function() {
 

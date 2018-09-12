@@ -1,20 +1,20 @@
-<a-entity
-  id='blinky-ghost'
-  mixin='ghost-speed'
-  ghost-behavior="ghostName: blinky;"
-  maze-agent
-  starting-position='-36 0 2'
-  sphere-collider='objects: #camera; radius: 1;'
-  geometry='primitive: box; height: 1; width: 1; depth: 1;'
-  material="transparent: true; opacity: 0; color: red;"
-  position='-36 0 2'
-  rotation='0 180 0'>
-    <a-gltf-model src='#blinky'
-                  position='0 0.3 0'
-                  rotation='0 180 0'
-                  mixin='ghost-dims'
-                  ></a-gltf-model>
-</a-entity>
+<!--<a-entity-->
+  <!--id='blinky-ghost'-->
+  <!--mixin='ghost-speed'-->
+  <!--ghost-behavior="ghostName: blinky;"-->
+  <!--maze-agent-->
+  <!--starting-position='-36 0 2'-->
+  <!--sphere-collider='objects: #camera; radius: 1;'-->
+  <!--geometry='primitive: box; height: 1; width: 1; depth: 1;'-->
+  <!--material="transparent: true; opacity: 0; color: red;"-->
+  <!--position='-36 0 2'-->
+  <!--rotation='0 180 0'>-->
+    <!--<a-gltf-model src='#blinky'-->
+                  <!--position='0 0.3 0'-->
+                  <!--rotation='0 180 0'-->
+                  <!--mixin='ghost-dims'-->
+                  <!--></a-gltf-model>-->
+<!--</a-entity>-->
 
 <!--<a-entity-->
   <!--id='inky-ghost'-->
@@ -33,22 +33,22 @@
                   <!--></a-gltf-model>-->
 <!--</a-entity>-->
 
-<!--<a-entity-->
-  <!--id='pinky-ghost'-->
-  <!--mixin='ghost-speed'-->
-  <!--pinky-behavior='targetEntity: #rig; initializationDotCount: 0'-->
-  <!--sphere-collider='objects: #camera; radius: 1;'-->
-  <!--starting-position='-29.7 0 0.817'-->
-  <!--geometry='primitive: box; height: 1; width: 1; depth: 1;'-->
-  <!--material="transparent: true; opacity: 0; color: pink;"-->
-  <!--position='-29.7 0 0.817'-->
-  <!--rotation='0 180 0'>-->
-    <!--<a-gltf-model src='#pinky'-->
-                  <!--position='0 0 0'-->
-                  <!--rotation='0 180 0'-->
-                  <!--mixin='ghost-dims'-->
-                  <!--></a-gltf-model>-->
-<!--</a-entity>-->
+<a-entity
+  id='pinky-ghost'
+  mixin='ghost-speed'
+  ghost-behavior='ghostName: pinky;'
+  sphere-collider='objects: #camera; radius: 1;'
+  starting-position='-29.7 0 0.817'
+  geometry='primitive: box; height: 1; width: 1; depth: 1;'
+  material="transparent: true; opacity: 0; color: pink;"
+  position='-29.7 0 0.817'
+  rotation='0 180 0'>
+    <a-gltf-model src='#pinky'
+                  position='0 0 0'
+                  rotation='0 180 0'
+                  mixin='ghost-dims'
+                  ></a-gltf-model>
+</a-entity>
 
 <!--<a-entity-->
   <!--id='clyde-ghost'-->
