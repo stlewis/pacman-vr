@@ -41,15 +41,16 @@ AFRAME.registerComponent('maze-agent', {
     cameraEl =  [].slice.call(el.children).filter(function(ch){ return ch.attributes['camera'] })[0];
     facingEl = this.data.isPacMan ? cameraEl : this.el;
 
-    heading = facingEl.object3D.rotation.y;
-    radians = heading > 0 ? heading : (2 * Math.PI) + heading
-    angle   = THREE.Math.radToDeg(radians);
+    vector = camera.object3D.getWorldDirection();
+    theta  = Math.atan2(vector.x, vector.z);
+    angle  = THREE.Math.radToDeg(theta);
 
     // Because of reasons, we think of the degrees that _would_ be north as being East, and all other values change accordingly.
-    facingNorth = angle >= 45 && angle <= 134
-    facingSouth = angle >= 225 && angle <= 314
-    facingEast  = angle >= 45 && angle <= 315
-    facingWest  = angle >= 135 && angle <= 225
+    facingEast  = angle >= -60 && angle <= 40
+    facingNorth = angle >= 41 && angle <= 114
+    facingWest  = angle >= 115 && angle <= 179 || angle >= -179  && angle <= -130
+    facingSouth = angle >= -129 && angle <= -59
+
 
 
     if(facingNorth) this.currentFacing = 'North';
