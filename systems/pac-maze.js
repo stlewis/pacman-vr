@@ -7,15 +7,15 @@ AFRAME.registerSystem('pac-maze', {
   initializeFrameArray: function() {
     var self              = this;
     this.frameArray       = []
-    var lastX             = -58
+    var lastX             = -66
     var traversableFrames = this.getTraversableFrames();
 
-    for(j = 1; j <= 33; j++){
+    for(j = 1; j <= 38; j++){
       xPos     = lastX + 2
       lastX        = xPos
-      frameRow = [ {position: {x: xPos, y: 0, z: 28 } } ];
+      frameRow = [ {position: {x: xPos, y: 0, z: 34 } } ];
 
-      for(i = 1; i < 28; i++){
+      for(i = 1; i < 36; i++){
         lastZ = frameRow[i - 1].position.z
         thisZ = lastZ - 2
 
@@ -25,6 +25,21 @@ AFRAME.registerSystem('pac-maze', {
       }
 
       this.frameArray.push(frameRow);
+    }
+  },
+
+  paintFrames: function(){
+    for(y = 0; y < this.frameArray.length; y++){
+      for(z = 0; z < this.frameArray[y].length; z++){
+        position = this.frameArray[y][z].position;
+        cylinder = document.createElement('a-cylinder');
+        cylinder.setAttribute('material', 'color: red; opacity: 0.5;');
+        cylinder.setAttribute('height', 30);
+        cylinder.setAttribute('radius', 1)
+        cylinder.setAttribute('position', position);
+
+        document.querySelector('a-scene').appendChild(cylinder)
+      }
     }
   },
 
