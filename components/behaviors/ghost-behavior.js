@@ -22,6 +22,7 @@ AFRAME.registerComponent('ghost-behavior', {
   tick: function() {
     currentDotCount  = this.el.sceneEl.components.scoreboard.globalDotCounter;
     isActive         = currentDotCount >= this.data.initializationDotCount
+    this.setTargetFrame();
 
     if(this.shouldUpdateNavDestination) {
       this.shouldUpdateNavDestination = false;
@@ -34,10 +35,8 @@ AFRAME.registerComponent('ghost-behavior', {
   },
 
   handleNavEnd: function(e) {
-    console.log("I love cookies");
     this.shouldUpdateNavDestination = true;
   },
-
 
   setTargetFrame: function(){
     switch(this.data.ghostName){
@@ -100,7 +99,6 @@ AFRAME.registerComponent('ghost-behavior', {
   },
 
   closestFrameToTarget: function(candidateFrames) {
-    this.setTargetFrame();
     var closestFrame         = candidateFrames[0];
     var bestDistanceToTarget = Infinity;
     target               = this.targetFrame;
