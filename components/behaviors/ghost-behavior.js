@@ -163,8 +163,44 @@ AFRAME.registerComponent('ghost-behavior', {
 
     squaresOnPath = squares4Away.filter(function(sq){ dir = self.pacMaze.directionFrom(pacPos, sq); return dir == pacFacing  })
 
-
+    this.markTarget('pinky', squaresOnPath[0])
     return squaresOnPath[0];
+  },
+
+  markTarget: function(forGhost, target) {
+    color = null;
+
+   switch(forGhost){
+      case 'blinky':
+        color = 'red';
+        break;
+      case 'pinky':
+        color = 'pink';
+        break;
+      case 'inky':
+        color = 'blue';
+        break;
+      case 'clyde':
+        color = 'orange';
+        break;
+    }
+
+    stickID = forGhost + 'TargetStick'
+
+    targetStick = document.createElement('a-cylinder');
+    targetStick.setAttribute('id', stickID);
+    targetStick.setAttribute('height', 1000);
+    targetStick.setAttribute('color', color);
+    targetStick.setAttribute('opacity', 0.5);
+    targetStick.setAttribute('position', target.position);
+
+    existingStick = document.querySelector('#' + stickID);
+
+    if(existingStick) {
+      existingStick.parentNode.removeChild(existingStick);
+    }
+
+    document.querySelector('a-scene').appendChild(targetStick);
   },
 
   clydeTargetFrame: function() {
@@ -176,8 +212,11 @@ AFRAME.registerComponent('ghost-behavior', {
 
     clydeDistance = this.pacMaze.distanceBetween(pacPos, clydePos);
 
+    target = clydeDistance >= 10 ? pacPos : this.clydeScatterFrame();
 
-    return clydeDistance <= 10 ? pacPos : this.clydeScatterFrame();
+    this.markTarget('clyde', target);
+
+    return target
   },
 
   clydeScatterFrame: function(){
@@ -213,8 +252,14 @@ AFRAME.registerComponent('ghost-behavior', {
 
     // Double the vector for a final position
     finalVector = vector.subVectors(blinkyVec, pacVec).normalize();
+    multiVec = finalVector.multiplyScalar(2);
 
-    return this.pacMaze.frameFromPosition(finalVector);
+    target = this.pacMaze.frameFromPosition(multiVec);
+
+    console.log("Inky target", multiVec);
+    this.markTarget('inky', target)
+
+    return target
   },
 
 

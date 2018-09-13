@@ -96,8 +96,8 @@ AFRAME.registerSystem('pac-maze', {
     for(y = 0; y < this.frameArray.length; y++){
       row = this.frameArray[y];
 
-      for(x = 0; i < row.length; x++){
-        targetFrame     = this.frrmeArray[y][x];
+      for(x = 0; x < row.length; x++){
+        targetFrame     = this.frameArray[y][x];
         if(!targetFrame) console.log('Bad Target', {x: x, y: y})
         distance        = this.distanceBetween({x: targetFrame.x, y: targetFrame.y}, {x: centerFrame.x, y: centerFrame.y})
         traversableCond = targetFrame.traversable == onlyTraversable
