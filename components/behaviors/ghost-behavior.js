@@ -107,6 +107,7 @@ AFRAME.registerComponent('ghost-behavior', {
 
   closestFrameToTarget: function(candidateFrames) {
     var closestFrame         = candidateFrames[0];
+    if(!this.targetFrame) return closestFrame;
     var bestDistanceToTarget = Infinity;
     target               = this.targetFrame;
 
@@ -173,8 +174,6 @@ AFRAME.registerComponent('ghost-behavior', {
     pacPos   = this.pacMan.components['maze-agent'].currentFrame;
     clydePos = this.el.components['maze-agent'].currentFrame;
 
-    console.log('Pac', pacPos)
-    console.log("Clyde", clydePos);
     clydeDistance = this.pacMaze.distanceBetween(pacPos, clydePos);
 
 
@@ -186,7 +185,36 @@ AFRAME.registerComponent('ghost-behavior', {
   },
 
   inkyTargetFrame: function() {
+    // Inky is a little tough, as he uses not only pac-man's position and orientation, (like pinky), but
+    // also the position of Blinky in determining his target.
+    // To start with, get the frame that falls 2 in front of pac-man, ala Pinky. Then, find Blinky's position.
+    // Draw a vector between Blinky and the initial target, then double it's length. The resulting square is
+    // Inky's target
 
+    pacPos    = this.pacMan.components['maze-agent'].currentFrame;
+    pacFacing = this.pacMan.components['maze-agent'].currentFacing;
+    blinkPos  = document.querySelector('#blinky-ghost').components['maze-agent'].currentFrame;
+    inkyPos   = this.el.components['maze-agent'].currentFrame;
+
+    squares2Away = this.pacMaze.framesAway(2, pacPos)
+    self         = this;
+
+    squaresOnPath = squares2Away.filter(function(sq){
+      dir = self.pacMaze.directionFrom(pacPos, sq); return dir == pacFacing
+    });
+
+    initialVector = squaresOnPath[0];
+
+    // Get the vector between Blinky and the initial target
+    vector      = new THREE.Vector3();
+    blinkyVec   = new THREE.Vector3(blinkPos.x, blinkPos.y, blinkPos.z);
+
+    pacVec      = new THREE.Vector3(pacPos.x, pacPos.y, pacPos.z);
+
+    // Double the vector for a final position
+    finalVector = vector.subVectors(blinkyVec, pacVec).normalize();
+
+    return this.pacMaze.frameFromPosition(finalVector);
   },
 
 

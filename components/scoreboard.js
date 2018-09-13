@@ -61,7 +61,7 @@ AFRAME.registerComponent('scoreboard', {
 
     blinkyCoords = blinky.getAttribute('starting-position').split(' ');
     pinkyCoords  = pinky.getAttribute('starting-position').split(' ');
-    //inkyCoords   = inky.getAttribute('starting-position').split(' ');
+    inkyCoords   = inky.getAttribute('starting-position').split(' ');
     clydeCoords  = clyde.getAttribute('starting-position').split(' ');
 
     blinkyStart.x = blinkyCoords[0]
@@ -72,9 +72,9 @@ AFRAME.registerComponent('scoreboard', {
     pinkyStart.y = pinkyCoords[1]
     pinkyStart.z = pinkyCoords[2]
 
-    //inkyStart.x = inkyCoords[0]
-    //inkyStart.y = inkyCoords[1]
-    //inkyStart.z = inkyCoords[2]
+    inkyStart.x = inkyCoords[0]
+    inkyStart.y = inkyCoords[1]
+    inkyStart.z = inkyCoords[2]
 
     clydeStart.x = clydeCoords[0]
     clydeStart.y = clydeCoords[1]
@@ -87,8 +87,8 @@ AFRAME.registerComponent('scoreboard', {
     pinky.setAttribute('position', pinkyStart);
     pinky.setAttribute('nav-agent', {active: false})
 
-    //inky.setAttribute('position', inkyStart);
-    //inky.setAttribute('nav-agent', {active: false})
+    inky.setAttribute('position', inkyStart);
+    inky.setAttribute('nav-agent', {active: false})
 
     clyde.setAttribute('position', clydeStart);
     clyde.setAttribute('nav-agent', {active: false})
@@ -99,6 +99,8 @@ AFRAME.registerComponent('scoreboard', {
 
   boardClear: function(e){
     this.handleDeath(); // Fundamentally the same as a death as far as the board goes. Later we tweak difficulty here.
+    this.resetDots();
+    this.globalDotCounter = 0;
   },
 
   resetDots: function() {
