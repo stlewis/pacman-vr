@@ -161,8 +161,8 @@ AFRAME.registerComponent('ghost-behavior', {
     initialFrame = squaresOnPath[0];
 
     vector    = new THREE.Vector3();
-    blinkyVec = new THREE.Vector3(blinkPos.x, blinkPos.y, blinkPos.z);
-    iniVec    = new THREE.Vector3(initialFrame.x, initialFrame.y, initialFrame.z);
+    blinkyVec = new THREE.Vector3(blinkPos.position.x, blinkPos.position.y, blinkPos.position.z);
+    iniVec    = new THREE.Vector3(initialFrame.position.x, initialFrame.position.y, initialFrame.position.z);
 
     // Get the directional vector
     dirVector = vector.subVectors(blinkyVec, iniVec).normalize();
@@ -170,9 +170,11 @@ AFRAME.registerComponent('ghost-behavior', {
 
     targetVec = new THREE.Vector3();
 
-    targetPos = targetVec.addVectors(iniVec, dirVector.multiplyScalar(distance));
+    targetPos = targetVec.addVectors(iniVec, dirVector.multiplyScalar(distance * 2));
 
     target = this.pacMaze.frameFromPosition(targetPos);
+
+    console.log("Initial", iniVec)
     this.markTarget('inky', target)
 
     return pacPos

@@ -2,13 +2,6 @@ AFRAME.registerSystem('pac-maze', {
 
   init: function() {
     this.initializeFrameArray();
-    console.log(this.frameFromPosition( {x: 10.950155281000756, y: 0.3, z: 0} ))
-
-    ent = document.createElement('a-cylinder');
-    ent.setAttribute("color", 'red');
-    ent.setAttribute('height', 1000);
-    ent.setAttribute("radius", 0.5);
-    document.querySelector('a-scene').appendChild(ent);
   },
 
   initializeFrameArray: function() {
