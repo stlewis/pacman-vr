@@ -59,27 +59,12 @@ AFRAME.registerComponent('ghost-behavior', {
     self    = this;
     myFrame = this.pacMaze.frameFromPosition(this.el.object3D.position);
 
-    // Before we attempt any further logic, we have to get the ghosts
-    // "out of the house". Blinky doesn't have this issue, but all the
-    // others do. A relatively simple way to ensure this...if the ghost
-    // isn't currently on a traversable frame, it should aim for the frame
-    // just outside the house
-
     if(!myFrame.traversable) {
       return self.pacMaze.frameFromPosition({ x: -36, y: 0, z: 2 })
     }
 
     this.setTargetFrame();
 
-    // At any given frame of the maze, a ghost has between 1 and 3
-    // possible choices for which frame to move to next. Beyond this they
-    // have a "target frame" which acts as their ultimate destination. In
-    // general, the frame they choose to move to should bring them closer
-    // to their ultimate destination in the most efficient way possible.
-
-    // First get a list of possible frames that are reachable from the
-    // ghost's current frame. These are all traversable frames _except_
-    // the one they've just vacated. Ghosts aren't allowed to move backwards
     candidateFrames = this.pacMaze.framesWithin(1, myFrame, true);
     candidateFrames = candidateFrames.filter(function(cf){
       myPreviousFrame = self.el.components['maze-agent'].previousFrame;
@@ -87,20 +72,7 @@ AFRAME.registerComponent('ghost-behavior', {
       return myPreviousFrame && !self.pacMaze._sameFrame(cf, myPreviousFrame)
     });
 
-
-    // Now that we've narrowed our list down to only those frames that are
-    // eligible for movement, we need to decide which of our options is the
-    // "best" one. Naturally, if our filtering leaves us with just one option,
-    // we take that one.
     if(candidateFrames.length == 1) return candidateFrames[0];
-
-    // If we've got more than one option, we need to measure the distance
-    // between each option and our _ultimate_ target square. This is a
-    // straight line measurement between the points and _most often_ should
-    // result in a single remaining option. However, if more than 1 option is
-    // the same distance away, we select just one by following these rules of
-    // precedence: North is better than West, which is better than South,
-    // which is better than East.
 
     return this.closestFrameToTarget(candidateFrames);
   },
@@ -120,15 +92,9 @@ AFRAME.registerComponent('ghost-behavior', {
       distanceToTarget = candidateV3.distanceTo(targetV3);
 
       if(distanceToTarget < bestDistanceToTarget){
-        // If the current candidate is better than the previous best, replace it.
         bestDistanceToTarget = distanceToTarget
         closestFrame = candidate
       }else if(distanceToTarget == bestDistanceToTarget){
-        // If we have a duplicate distance, we can choose between them by
-        // applying the rules of precedence. Whichever one wins between the
-        // current best and the candidate takes/keeps the spot.
-
-        // Get the relative direction of the current best Frame.
         currentBestDirection = this.pacMaze.directionFrom(closestFrame, target);
         candidateDirection   = this.pacMaze.directionFrom(candidate, target);
 
@@ -139,74 +105,28 @@ AFRAME.registerComponent('ghost-behavior', {
       }
     }
 
-    // One way or the other, at the end of all this, we should have just a single value;
     return closestFrame;
   },
 
   blinkyTargetFrame: function() {
-    // Blinky is hardcore. Blinky is headed straight for Pacman.
     frame  = this.pacMan.components['maze-agent'].currentFrame;
     return frame;
   },
 
   pinkyTargetFrame: function(){
-    // Pinky is aiming for the square 4 squares "in front" of Pacman, in an effort to cut him off.
-    // To determine this, we get Pac-Man's facing and position, then count out 4 squares from that point.
-    // It's worth noting that Pinky's target frame may not be traversable, but that's okay since Pinky will
-    // never actually be _aiming_ for that square when navigating. Rather, he will be making turn decisions
-    // based on _distance_ from it.
-
     pacPos       = this.pacMan.components['maze-agent'].currentFrame;
     pacFacing    = this.pacMan.components['maze-agent'].currentFacing;
     squares4Away = this.pacMaze.framesAway(4, pacPos)
     self         = this;
 
     squaresOnPath = squares4Away.filter(function(sq){ dir = self.pacMaze.directionFrom(pacPos, sq); return dir == pacFacing  })
+    target        = squaresOnPath[0];
 
-    this.markTarget('pinky', squaresOnPath[0])
-    return squaresOnPath[0];
-  },
-
-  markTarget: function(forGhost, target) {
-    color = null;
-
-   switch(forGhost){
-      case 'blinky':
-        color = 'red';
-        break;
-      case 'pinky':
-        color = 'pink';
-        break;
-      case 'inky':
-        color = 'blue';
-        break;
-      case 'clyde':
-        color = 'orange';
-        break;
-    }
-
-    stickID = forGhost + 'TargetStick'
-
-    targetStick = document.createElement('a-cylinder');
-    targetStick.setAttribute('id', stickID);
-    targetStick.setAttribute('height', 1000);
-    targetStick.setAttribute('color', color);
-    targetStick.setAttribute('opacity', 0.5);
-    targetStick.setAttribute('position', target.position);
-
-    existingStick = document.querySelector('#' + stickID);
-
-    if(existingStick) {
-      existingStick.parentNode.removeChild(existingStick);
-    }
-
-    document.querySelector('a-scene').appendChild(targetStick);
+    this.markTarget('pinky', target)
+    return target
   },
 
   clydeTargetFrame: function() {
-    // Clyde's target is dependent upon where he is with relation to Pac-man. If he's further than 8 tiles from Pacman,
-    // he behaves just like Blinky. If he's within 8 tiles, he behaves as he would if he were in "scatter mode", aiming
-    // for his scatter tile, (bottom left corner)
     pacPos   = this.pacMan.components['maze-agent'].currentFrame;
     clydePos = this.el.components['maze-agent'].currentFrame;
 
@@ -217,10 +137,6 @@ AFRAME.registerComponent('ghost-behavior', {
     this.markTarget('clyde', target);
 
     return target
-  },
-
-  clydeScatterFrame: function(){
-    return this.pacMaze.frameArray[34][4]
   },
 
   inkyTargetFrame: function() {
@@ -242,25 +158,65 @@ AFRAME.registerComponent('ghost-behavior', {
       dir = self.pacMaze.directionFrom(pacPos, sq); return dir == pacFacing
     });
 
-    initialVector = squaresOnPath[0];
+    initialFrame = squaresOnPath[0];
 
-    // Get the vector between Blinky and the initial target
-    vector      = new THREE.Vector3();
-    blinkyVec   = new THREE.Vector3(blinkPos.x, blinkPos.y, blinkPos.z);
+    vector    = new THREE.Vector3();
+    blinkyVec = new THREE.Vector3(blinkPos.x, blinkPos.y, blinkPos.z);
+    iniVec    = new THREE.Vector3(initialFrame.x, initialFrame.y, initialFrame.z);
 
-    pacVec      = new THREE.Vector3(pacPos.x, pacPos.y, pacPos.z);
+    // Get the directional vector
+    dirVector = vector.subVectors(blinkyVec, iniVec).normalize();
+    distance  = blinkyVec.distanceTo(iniVec);
 
-    // Double the vector for a final position
-    finalVector = vector.subVectors(blinkyVec, pacVec).normalize();
-    multiVec = finalVector.multiplyScalar(2);
+    targetVec = new THREE.Vector3();
 
-    target = this.pacMaze.frameFromPosition(multiVec);
+    targetPos = targetVec.addVectors(iniVec, dirVector.multiplyScalar(distance));
 
-    console.log("Inky target", multiVec);
+    target = this.pacMaze.frameFromPosition(targetPos);
     this.markTarget('inky', target)
 
-    return target
+    return pacPos
   },
+
+  clydeScatterFrame: function(){
+    return this.pacMaze.frameArray[34][4]
+  },
+
+  markTarget: function(forGhost, target) {
+    color = null;
+    stickID = forGhost + 'TargetStick'
+
+    switch(forGhost){
+      case 'blinky':
+        color = 'red';
+        break;
+      case 'pinky':
+        color = 'pink';
+        break;
+      case 'inky':
+        color = 'blue';
+        break;
+      case 'clyde':
+        color = 'orange';
+        break;
+    }
+
+    targetStick = document.createElement('a-cylinder');
+    targetStick.setAttribute('id', stickID);
+    targetStick.setAttribute('height', 1000);
+    targetStick.setAttribute('color', color);
+    targetStick.setAttribute('opacity', 0.5);
+    targetStick.setAttribute('position', target.position);
+
+    existingStick = document.querySelector('#' + stickID);
+
+    if(existingStick) {
+      existingStick.parentNode.removeChild(existingStick);
+    }
+
+    document.querySelector('a-scene').appendChild(targetStick);
+  },
+
 
 
 });
