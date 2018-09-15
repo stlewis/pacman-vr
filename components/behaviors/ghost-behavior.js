@@ -174,10 +174,9 @@ AFRAME.registerComponent('ghost-behavior', {
 
     target = this.pacMaze.frameFromPosition(targetPos);
 
-    console.log("Initial", iniVec)
     this.markTarget('inky', target)
 
-    return pacPos
+    return target
   },
 
   clydeScatterFrame: function(){
