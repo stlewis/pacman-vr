@@ -7,15 +7,15 @@ AFRAME.registerSystem('pac-maze', {
   initializeFrameArray: function() {
     var self              = this;
     this.frameArray       = []
-    var lastX             = -66
+    var lastX             = -80
     var traversableFrames = this.getTraversableFrames();
 
-    for(j = 1; j <= 37; j++){
+    for(j = 1; j <= 50; j++){
       xPos     = lastX + 2
       lastX        = xPos
-      frameRow = [ {position: {x: xPos, y: 0, z: 34 } } ];
+      frameRow = [ {position: {x: xPos, y: 0, z: 50 } } ];
 
-      for(i = 1; i < 34; i++){
+      for(i = 1; i < 50; i++){
         lastZ = frameRow[i - 1].position.z
         thisZ = lastZ - 2
 
@@ -27,6 +27,8 @@ AFRAME.registerSystem('pac-maze', {
       this.frameArray.push(frameRow);
 
     }
+
+    this.paintFrames(true);
 
   },
 
@@ -190,6 +192,7 @@ AFRAME.registerSystem('pac-maze', {
 
 
   getTraversableFrames: function() {
+    left_offset = 11;
     traversable = []
 
     x_traversables = [
@@ -198,38 +201,45 @@ AFRAME.registerSystem('pac-maze', {
       [],
       [],
       [],
-      [1,2,3,4,5,6,7,8,9,10,11,12,15,16,17,18,19,20,21,22,23,24,25,26].map(function(i){ return i + 3}),
-      [1,6,12,15,21,26].map(function(i){ return i + 3}),
-      [1,6,12,15,21,26].map(function(i){ return i + 3}),
-      [1,6,12,15,21,26].map(function(i){ return i + 3}),
-      [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26].map(function(i){ return i + 3}),
-      [1,6,9,18,21,26].map(function(i){ return i + 3}),
-      [1,6,9,18,21,26].map(function(i){ return i + 3}),
-      [1,2,3,4,5,6,9,10,11,12,15,16,17,18,21,22,23,24,25,26].map(function(i){ return i + 3}),
-      [6,12,15,21].map(function(i){ return i + 3}),
-      [6,12,15,21].map(function(i){ return i + 3}),
-      [6,9,10,11,12,13,14,15,16,17,18,21].map(function(i){ return i + 3}),
-      [6,9,18,21].map(function(i){ return i + 3}),
-      [6,9,18,21].map(function(i){ return i + 3}),
-      [0,1,2,3,4,5,6,7,8,9,18,19,20,21,22,23,24,25,26,27].map(function(i){ return i + 3}),
-      [6,9,18,21].map(function(i){ return i + 3}),
-      [6,9,18,21].map(function(i){ return i + 3}),
-      [6,9,10,11,12,13,14,15,16,17,18,21].map(function(i){ return i + 3}),
-      [6,9,18,21].map(function(i){ return i + 3}),
-      [6,9,18,21].map(function(i){ return i + 3}),
-      [1,2,3,4,5,6,7,8,9,10,11,12,15,16,17,18,19,20,21,22,23,24,25,26].map(function(i){ return i + 3}),
-      [1,6,12,15,21,26].map(function(i){ return i + 3}),
-      [1,6,12,15,21,26].map(function(i){ return i + 3}), // 22
-      [1,2,3,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21, 24,25,26].map(function(i){ return i + 3}),
-      [3,6,9,18,21,24].map(function(i){ return i + 3}),
-      [3,6,9,18,21,24].map(function(i){ return i + 3}),
-      [1,2,3,4,5,6,9,10,11,12,15,16,17,18,21,22,23,24,25,26].map(function(i){ return i + 3}),
-      [1,12,15,26].map(function(i){ return i + 3}), // 27
-      [1,12,15,26].map(function(i){ return i + 3}),
-      [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26].map(function(i){ return i + 3}),
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [1,2,3,4,5,6,7,8,9,10,11,12,15,16,17,18,19,20,21,22,23,24,25,26].map(function(i){ return i + left_offset}),
+      [1,6,12,15,21,26].map(function(i){ return i + left_offset}),
+      [1,6,12,15,21,26].map(function(i){ return i + left_offset}),
+      [1,6,12,15,21,26].map(function(i){ return i + left_offset}),
+      [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26].map(function(i){ return i + left_offset}),
+      [1,6,9,18,21,26].map(function(i){ return i + left_offset}),
+      [1,6,9,18,21,26].map(function(i){ return i + left_offset}),
+      [1,2,3,4,5,6,9,10,11,12,15,16,17,18,21,22,23,24,25,26].map(function(i){ return i + left_offset}),
+      [6,12,15,21].map(function(i){ return i + left_offset}),
+      [6,12,15,21].map(function(i){ return i + left_offset}),
+      [6,9,10,11,12,13,14,15,16,17,18,21].map(function(i){ return i + left_offset}),
+      [6,9,18,21].map(function(i){ return i + left_offset}),
+      [6,9,18,21].map(function(i){ return i + left_offset}),
+      [0,1,2,3,4,5,6,7,8,9,18,19,20,21,22,23,24,25,26,27].map(function(i){ return i + left_offset}),
+      [6,9,18,21].map(function(i){ return i + left_offset}),
+      [6,9,18,21].map(function(i){ return i + left_offset}),
+      [6,9,10,11,12,13,14,15,16,17,18,21].map(function(i){ return i + left_offset}),
+      [6,9,18,21].map(function(i){ return i + left_offset}),
+      [6,9,18,21].map(function(i){ return i + left_offset}),
+      [1,2,3,4,5,6,7,8,9,10,11,12,15,16,17,18,19,20,21,22,23,24,25,26].map(function(i){ return i + left_offset}),
+      [1,6,12,15,21,26].map(function(i){ return i + left_offset}),
+      [1,6,12,15,21,26].map(function(i){ return i + left_offset}), // 22
+      [1,2,3,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21, 24,25,26].map(function(i){ return i + left_offset}),
+      [3,6,9,18,21,24].map(function(i){ return i + left_offset}),
+      [3,6,9,18,21,24].map(function(i){ return i + left_offset}),
+      [1,2,3,4,5,6,9,10,11,12,15,16,17,18,21,22,23,24,25,26].map(function(i){ return i + left_offset}),
+      [1,12,15,26].map(function(i){ return i + left_offset}), // 27
+      [1,12,15,26].map(function(i){ return i + left_offset}),
+      [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26].map(function(i){ return i + left_offset}),
     ]
 
-    for(y = 0; y <= 33; y++){
+    for(y = 0; y <= 40; y++){
       x_vals = x_traversables[y];
 
       for(i = 0; i < x_vals.length; i++){
