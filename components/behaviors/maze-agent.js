@@ -19,8 +19,6 @@ AFRAME.registerComponent('maze-agent', {
   tick: function() {
     this.updateCurrentFrame();
     this.updateCurrentFacing();
-
-    agentData = {currentFrame: this.currentFrame, currentFacing: this.currentFacing }
   },
 
   updateCurrentFrame: function() {
@@ -30,7 +28,6 @@ AFRAME.registerComponent('maze-agent', {
     if(currentFrame != this.currentFrame){
       this.previousFrame = Object.assign({}, this.currentFrame); // Need a copy so we don't end up with the same reference
       this.currentFrame  = currentFrame
-      this.el.emit('frameChange', {previousFrame: this.previousFrame, currentFrame: this.currentFrame});
     }
   },
 

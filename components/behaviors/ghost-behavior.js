@@ -26,7 +26,11 @@ AFRAME.registerComponent('ghost-behavior', {
     if(this.shouldUpdateNavDestination) {
       this.shouldUpdateNavDestination = false;
       this.destinationFrame = this.calculateDestinationFrame();
-      this.el.setAttribute('nav-agent', {active:  isActive, destination: this.destinationFrame.position  })
+      if(this.destinationFrame) {  // Weird that this sometimes isn't getting set?
+        this.el.setAttribute('nav-agent', {active:  isActive, destination: this.destinationFrame.position  })
+      }else{
+        console.log("No destination frame!", this.el);
+      }
     }else{
       this.el.setAttribute('nav-agent', {active:  isActive })
     }
