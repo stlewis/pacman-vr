@@ -16,6 +16,7 @@ AFRAME.registerComponent('pac-maze', {
         posFromFrame          = this.positionFromFrame(frame);
         frame['position']     = posFromFrame;
         frame['traversable']  = this.checkTraversable(frame);
+        frame['hasDot']       = this.checkDot(frame);
         this.frameArray[y][x] = frame;
       }
     }
@@ -30,7 +31,7 @@ AFRAME.registerComponent('pac-maze', {
     return {x: zeroPoint + increaseXBy, z: zeroPoint + increaseYBy, y: 0.5 }
   },
 
-  paintFrames(onlyTraversable) {
+  paintFrames(onlyTraversable, onlyDot) {
     for(y=0; y <= this.rowCount; y++) {
       for(x=0; x <= this.colCount; x++) {
         frame  = this.frameArray[y][x];
@@ -43,6 +44,8 @@ AFRAME.registerComponent('pac-maze', {
         if(onlyTraversable) {
           console.log(frame.position);
           if(frame.traversable) document.querySelector('a-scene').appendChild(marker);
+        } else if(onlyDot){
+          if(frame.hasDot) document.querySelector('a-scene').appendChild(marker);
         } else {
           document.querySelector('a-scene').appendChild(marker);
         }
@@ -93,8 +96,24 @@ AFRAME.registerComponent('pac-maze', {
     return traversableKey[frame.y].indexOf(frame.x) != -1;
   },
 
-  hasDot: function(frame) {
+  checkSuperDot: function(frame) {
+    superDotFrames = [
+      { x: 11, y: 6 },
+      { x: 11, y: 30 },
+      { x: 31, y: 4 },
+      { x: 31, y: 30 }
+    ]
+
+    self = this;
+    return superDotFrames.filter(function(sf){ return self.sameFrame(frame, sf)  }).length == 1;
+  }
+
+  checkDot: function(frame) {
     noDotFrames = [
+
+      { x: 11, y: 17 },
+      { x: 11, y: 18 },
+
       { x: 15, y: 13 },
       { x: 15, y: 22 },
 
@@ -182,7 +201,7 @@ AFRAME.registerComponent('pac-maze', {
 
     ]
 
-    return !this.frameInSet(frame, noDotFrames);
+    return frame.traversable && !this.frameInSet(frame, noDotFrames);
   },
 
   frameInSet: function(frame, frameSet) {
@@ -190,6 +209,18 @@ AFRAME.registerComponent('pac-maze', {
     withY = withX.filter(function(fr){ return fr.y == frame.y })[0];
 
     return withY ? true : false;
+  },
+
+  sameFrame:  function(a, b) {
+    ax = a.x
+    bx = b.x
+    ay = a.y
+    by = b.y
+
+    if(ax != bx) return false;
+    if(ay != by) return false;
+
+    return true;
   }
 
 });
