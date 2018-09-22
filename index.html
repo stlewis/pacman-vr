@@ -13,6 +13,9 @@
     <a-scene visible='true'>
       <a-assets>
       </a-assets>
+        <a-mixin id='wall'
+                 material='color: blue; roughness: 0.7; metalness: 0.2;'
+                 geometry='height: 0.5;'></a-mixin>
 
         <a-entity id="rig"
           movement-controls="speed: 0.2; constrainToNavMesh: true;"
