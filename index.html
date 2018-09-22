@@ -8,6 +8,10 @@
     <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
     <script src="https://rawgit.com/mayognaise/aframe-gif-component/master/dist/aframe-gif-component.min.js"></script>
     <script src='https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js'></script>
+
+    <!-- Custom Components -->
+    <script src='./components/pac-maze.js'></script>
+
   </head>
   <body>
     <a-scene visible='true'>
@@ -17,21 +21,8 @@
                  material='color: blue; roughness: 0.7; metalness: 0.2;'
                  geometry='height: 0.5;'></a-mixin>
 
-        <a-entity id="rig"
-          movement-controls="speed: 0.2; constrainToNavMesh: true;"
-          position="0 0 0">
-
-          <a-entity camera
-                    id='camera'
-                    look-controls='pointerLockEnabled: true;'
-                    position="0 1.6 0">
-          </a-entity>
-        </a-entity>
-
-
-
-
-      <a-entity id='maze' template='src: ./templates/maze.html'></a-entity>
+      <a-entity id='player' template='src: ./templates/player.html'></a-entity>
+      <a-entity pac-maze id='maze' template='src: ./templates/maze.html'></a-entity>
     </a-scene>
   </body>
 </html>
