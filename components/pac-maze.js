@@ -9,9 +9,9 @@ AFRAME.registerComponent('pac-maze', {
   initializeFrameArray: function() {
     this.frameArray = [];
 
-    for(y=0; y <= this.rowCount; y++) {
+    for(y = 0; y <= this.rowCount; y++) {
       this.frameArray[y] = this.frameArray[y] ? this.frameArray[y] : []
-      for(x=0; x <= this.colCount; x++) {
+      for(x = 0; x <= this.colCount; x++) {
         frame                 = {x: x, y: y};
         posFromFrame          = this.positionFromFrame(frame);
         frame['position']     = posFromFrame;
@@ -20,6 +20,12 @@ AFRAME.registerComponent('pac-maze', {
         this.frameArray[y][x] = frame;
       }
     }
+
+    originFrame = this.frameArray[17][11];
+    adjacentFrames = this.framesAtDistance(4, originFrame, true);
+    var self = this;
+
+    adjacentFrames.forEach(function(fr){ self.paintFrame(fr, 'green');  })
   },
 
   positionFromFrame: function(frame) {
@@ -31,26 +37,116 @@ AFRAME.registerComponent('pac-maze', {
     return {x: zeroPoint + increaseXBy, z: zeroPoint + increaseYBy, y: 0.5 }
   },
 
-  paintFrames(onlyTraversable, onlyDot) {
-    for(y=0; y <= this.rowCount; y++) {
-      for(x=0; x <= this.colCount; x++) {
-        frame  = this.frameArray[y][x];
-        marker = document.createElement('a-cylinder');
-        marker.setAttribute('height', 2);
-        marker.setAttribute('radius', 0.5);
-        marker.setAttribute('material', 'color: red; opacity: 0.5;');
-        marker.setAttribute('position', frame.position);
+  nextFrameByDir: function(direction, frame) {
+    candidateFrames = this.framesWithinDistance(1, frame);
+    nextFrame       = null;
 
-        if(onlyTraversable) {
-          console.log(frame.position);
-          if(frame.traversable) document.querySelector('a-scene').appendChild(marker);
-        } else if(onlyDot){
-          if(frame.hasDot) document.querySelector('a-scene').appendChild(marker);
-        } else {
-          document.querySelector('a-scene').appendChild(marker);
+    switch(direction){
+      case 'North':
+        nextframe = candidateframes.filter(function(fr){
+          return fr.x == frame.x && fr.y < frame.y
+        })[0];
+        break;
+      case 'South':
+        nextframe = candidateframes.filter(function(fr){
+          return fr.x == frame.x && fr.y > frame.y
+        })[0];
+        break;
+      case 'East':
+        nextframe = candidateframes.filter(function(fr){
+          return fr.x < frame.x && fr.y == frame.y
+        })[0];
+        break;
+      case 'West':
+        nextframe = candidateframes.filter(function(fr){
+          return fr.x > frame.x && fr.y == frame.y
+        })[0];
+        break;
+    }
+
+    return nextFrame
+  },
+
+  framesWithinDistance: function(distance, frame, traversableOnly) {
+    frames = []
+    for(y = 0; y <= this.rowCount; y++) {
+      for(x = 0; x <= this.colCount; x++) {
+        candidate = this.frameArray[y][x];
+        frameDistance = this.frameDistanceBetween(frame, candidate)
+
+        if(frameDistance <= distance && frameDistance != 0){
+          if(traversableOnly) {
+            if(candidate.traversable) frames.push(candidate);
+          } else {
+            frames.push(candidate);
+          }
         }
       }
     }
+
+    return frames;
+  },
+
+  framesAtDistance: function(distance, frame, traversableOnly) {
+    frames = []
+    for(y = 0; y <= this.rowCount; y++) {
+      for(x = 0; x <= this.colCount; x++) {
+        candidate = this.frameArray[y][x];
+
+        if(this.frameDistanceBetween(frame, candidate) == distance){
+          if(traversableOnly) {
+            if(candidate.traversable) frames.push(candidate);
+          } else {
+            frames.push(candidate);
+          }
+        }
+      }
+    }
+
+    return frames;
+  },
+
+  frameDistanceBetween(origin, destination) {
+    var destinationX = destination.x
+    var destinationY = destination.y;
+    var originX = origin.x;
+    var originY = origin.y;
+
+    var xDistance = Math.abs(destinationX - originX);
+    var yDistance = Math.abs(destinationY - originY);
+
+    result = xDistance + yDistance
+    return result
+  },
+
+
+  paintFrames(onlyTraversable, onlyDot) {
+    for(y = 0; y <= this.rowCount; y++) {
+      for(x = 0; x <= this.colCount; x++) {
+        frame  = this.frameArray[y][x];
+
+        if(onlyTraverseable) {
+          if(frame.traverseable) this.paintFrame(frame);
+
+        } else if(onlyDot) {
+          if(frame.hasDot) this.paintFrame(frame);
+        } else {
+          this.paintFrame(frame)
+        }
+      }
+    }
+  },
+
+  paintFrame(frame, color) {
+    color = color ? color : 'red';
+    marker = document.createElement('a-cylinder');
+    marker.setAttribute('height', 2);
+    marker.setAttribute('radius', 0.5);
+    marker.setAttribute('material', 'opacity: 0.5;');
+    marker.setAttribute('color', color)
+    marker.setAttribute('position', frame.position);
+
+    document.querySelector('a-scene').appendChild(marker);
   },
 
   checkTraversable: function(frame) {
@@ -104,9 +200,9 @@ AFRAME.registerComponent('pac-maze', {
       { x: 31, y: 30 }
     ]
 
-    self = this;
+    var self = this;
     return superDotFrames.filter(function(sf){ return self.sameFrame(frame, sf)  }).length == 1;
-  }
+  },
 
   checkDot: function(frame) {
     noDotFrames = [
@@ -221,6 +317,6 @@ AFRAME.registerComponent('pac-maze', {
     if(ay != by) return false;
 
     return true;
-  }
+  },
 
 });

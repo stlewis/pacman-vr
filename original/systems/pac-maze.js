@@ -28,8 +28,6 @@ AFRAME.registerSystem('pac-maze', {
 
     }
 
-    //this.paintFrames(true);
-
   },
 
   distanceMatrix: function() {
