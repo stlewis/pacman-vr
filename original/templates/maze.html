@@ -1,0 +1,370 @@
+<!-- Portals -->
+<a-entity id='left-portal' geometry="primitive: plane; height: 4; width: 2.1;"
+                            position='-28.1 2.183 -30.1'
+                            rotation='0 90 0'
+                            material='shader:gif; src: url(./images/portal.gif)'></a-entity>
+
+<a-entity id='left-portal' geometry="primitive: plane; height: 4; width: 2.1;"
+                            position='25.97 2.183 -30.1'
+                            rotation='0 -90 0'
+                            material='shader:gif; src: url(./images/portal.gif)'></a-entity>
+
+<!--Scoreboards-->
+<!-- Top  -->
+<a-gui-flex-container
+                      id='top-score'
+                      position='2.156 4.745 3.453'
+                      rotation='0 180 0'>
+  <a-text width='40' value="Score: "></a-text>
+  <a-text class='scorevalue' width='40' value="0" position='5.2 0 0 '></a-text>
+</a-gui-flex-container>
+
+<!-- Bottom -->
+<a-gui-flex-container
+                      id='bottom-score'
+                      position='2.386 4.745 -59'
+                      rotation='0 0 0'>
+  <a-text width='40' value="Score: "></a-text>
+  <a-text class='scorevalue' width='40' value="0" position='5.2 0 0 '></a-text>
+</a-gui-flex-container>
+
+<!-- Left -->
+<a-gui-flex-container
+                      id='left-score'
+                      position='-27.7 5.528 -26.3'
+                      rotation='0 90 0'>
+  <a-text width='40' value="Score: "></a-text>
+  <a-text class='scorevalue' width='40' value="0" position='5.2 0 0 '></a-text>
+</a-gui-flex-container>
+
+<!-- Right -->
+<a-gui-flex-container
+                      id='right-score'
+                      position='28.09 5.528 -33.1'
+                      rotation='0 -90 0'>
+  <a-text width='40' value="Score: "></a-text>
+  <a-text class='scorevalue' width='40' value="0" position='5.2 0 0 '></a-text>
+</a-gui-flex-container>
+
+
+
+
+
+
+<a-box mixin='wall'
+       id='bottom-wall'
+       position='-1 0.5 1.5'
+       width='52'></a-box>
+<a-box mixin='wall'
+       id='top-wall'
+       position='-1 0.5 -57.5'
+       width='54'></a-box>
+
+<a-box mixin='wall'
+       id='bottom-left-wall'
+       position='-27.5 0.5 -13.5'
+       width='31'
+       rotation='0 90 0'></a-box>
+
+<a-box mixin='wall'
+       id='top-left-wall'
+       position='-27.5 0.5 -44'
+       width='26'
+       rotation='0 90 0'></a-box>
+
+<a-box mixin='wall'
+       id='top-left-wall'
+       position='25.5 0.5 -44'
+       width='26'
+       rotation='0 90 0'></a-box>
+
+<a-box mixin='wall'
+       id='bottom-left-protrusion'
+       position='-25 0.5 -9'
+       width='4'
+       depth='4'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='bottom-left-long-t'
+       position='-15 0.5 -3'
+       width='20'
+       depth='4'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='bottom-left-short-t'
+       position='-13 0.5 -8'
+       width='6'
+       depth='4'
+       rotation='0 90 0'></a-box>
+
+<a-box mixin='wall'
+       id='bottom-right-wall'
+       position='25.5 0.5 -13.5'
+       width='31'
+       rotation='0 90 0'></a-box>
+
+<a-box mixin='wall'
+       id='bottom-right-protrusion'
+       position='23 0.5 -9'
+       width='4'
+       depth='4'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='bottom-right-long-t'
+       position='13 0.5 -3'
+       width='20'
+       depth='4'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='bottom-right-short-t'
+       position='11 0.5 -8'
+       width='6'
+       depth='4'
+       rotation='0 90 0'></a-box>
+
+<a-box mixin='wall'
+       id='low-center-long-t'
+       position='-1 0.5 -9'
+       width='16'
+       depth='4'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='low-center-short-t'
+       position='-1 0.5 -4'
+       width='6'
+       depth='4'
+       rotation='0 90 0'></a-box>
+
+<a-box mixin='wall'
+       id='high-center-long-t'
+       position='-1 0.5 -21'
+       width='16'
+       depth='4'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='high-center-short-t'
+       position='-1 0.5 -16'
+       width='6'
+       depth='4'
+       rotation='0 90 0'></a-box>
+
+<a-box mixin='wall'
+       id='bottom-left-l-long'
+       position='-19 0.5 -12'
+       width='10'
+       depth='4'
+       rotation='0 90 0'></a-box>
+
+<a-box mixin='wall'
+       id='bottom-left-l-short'
+       position='-23 0.5 -15'
+       width='4'
+       depth='4'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='bottom-right-l-long'
+       position='17 0.5 -12'
+       width='10'
+       depth='4'
+       rotation='0 90 0'></a-box>
+
+<a-box mixin='wall'
+       id='bottom-right-l-short'
+       position='21 0.5 -15'
+       width='4'
+       depth='4'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='left-lower-middle-bar'
+       position='-10 0.5 -15'
+       width='10'
+       depth='4'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='right-lower-middle-bar'
+       position='8 0.5 -15'
+       width='10'
+       depth='4'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='centerzone-vertical-left'
+       position='-13 0.5 -24'
+       width='10'
+       depth='4'
+       rotation='0 90 0'></a-box>
+
+<a-box mixin='wall'
+       id='centerzone-vertical-right'
+       position='11 0.5 -24'
+       width='10'
+       depth='4'
+       rotation='0 90 0'></a-box>
+
+<a-box mixin='wall'
+       id='lower-left-bulwark'
+       position='-22 0.5 -24'
+       width='10'
+       depth='10'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='upper-left-bulwark'
+       position='-22 0.5 -36'
+       width='10'
+       depth='10'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='upper-right-bulwark'
+       position='20 0.5 -36'
+       width='10'
+       depth='10'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='lower-right-bulwark'
+       position='20 0.5 -24'
+       width='10'
+       depth='10'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='lower-monster-box'
+       position='-1 0.5 -26'
+       width='16'
+       depth='2'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='upper-monster-box-left'
+       position='-6 0.5 -34'
+       width='6'
+       depth='2'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='upper-monster-box-right'
+       position='4 0.5 -34'
+       width='6'
+       depth='2'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='left-monster-box'
+       position='-8 0.5 -30'
+       width='6'
+       depth='2'
+       rotation='0 90 0'></a-box>
+
+<a-box mixin='wall'
+       id='right-monster-box'
+       position='6 0.5 -30'
+       width='6'
+       depth='2'
+       rotation='0 90 0'></a-box>
+
+<a-box mixin='wall'
+       id='hight-center-long-t'
+       position='-1 0.5 -45'
+       width='16'
+       depth='4'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='high-center-short-t'
+       position='-1 0.5 -40'
+       width='6'
+       depth='4'
+       rotation='0 90 0'></a-box>
+
+<a-box mixin='wall'
+       id='equal-t-left-long'
+       position='-13 0.5 -39'
+       width='16'
+       depth='4'
+       rotation='0 90 0'></a-box>
+
+<a-box mixin='wall'
+       id='equal-t-left-short'
+       position='-8 0.5 -39'
+       width='6'
+       depth='4'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='equal-t-right-long'
+       position='11 0.5 -39'
+       width='16'
+       depth='4'
+       rotation='0 90 0'></a-box>
+
+<a-box mixin='wall'
+       id='equal-t-left-short'
+       position='6 0.5 -39'
+       width='6'
+       depth='4'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='small-bar-top-left'
+       position='-21 0.5 -45'
+       width='8'
+       depth='4'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='fat-block-top-left'
+       position='-21 0.5 -52'
+       width='8'
+       depth='6'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='fat-block-top-right'
+       position='19 0.5 -52'
+       width='8'
+       depth='6'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='small-bar-top-right'
+       position='19 0.5 -45'
+       width='8'
+       depth='4'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='fatter-block-top-left'
+       position='-10 0.5 -52'
+       width='10'
+       depth='6'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='fatter-block-top-right'
+       position='8 0.5 -52'
+       width='10'
+       depth='6'
+       rotation='0 0 0'></a-box>
+
+<a-box mixin='wall'
+       id='top-center-protrusion'
+       position='-1 0.5 -53'
+       width='8'
+       depth='4'
+       rotation='0 90 0'></a-box>
+
+<a-gltf-model id='nav-mesh' nav-mesh src='#navmesh' rotation='0 -90 0' position='0 0.1 0' visible='false'></a-gltf-model>
+<a-plane id='ground' height='60.5' width='54.5' material="color: black; metalness: 0.9;" rotation='-90 0 0' position='-1 0.29 -28'></a-plane>
+
+

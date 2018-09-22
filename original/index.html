@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+    <script src="//cdn.rawgit.com/stlewis/aframe-extras/master/dist/aframe-extras.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
+    <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-gif-component/master/dist/aframe-gif-component.min.js"></script>
+    <script src='https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js'></script>
+
+    <!-- Custom Systems -->
+    <script src='./systems/pac-maze.js'></script>
+
+    <!-- Custom Primitives -->
+    <script src='./primitives/pac-dot.js'></script>
+
+
+    <!-- Custom Components -->
+    <script src='./components/scoreboard.js'></script>
+    <script src='./components/pac-man.js'></script>
+    <script src='./components/teleportable.js'></script>
+    <script src='./components/dot.js'></script>
+
+    <!-- Behavior Components -->
+    <script src='./components/behaviors/maze-agent.js'></script>
+    <script src='./components/behaviors/ghost-behavior.js'></script>
+
+
+  </head>
+  <body>
+    <a-scene visible='true' scoreboard pac-maze>
+      <a-assets>
+        <img id='sky' src='./images/sky.jpg'>
+        <img id='portal' src='./images/portal.gif'>
+        <a-asset-item id='navmesh' src='./gltf/navmesh.gltf'>
+        <a-asset-item id='blinky' src='./gltf/blinky.gltf'>
+        <a-asset-item id='pinky' src='./gltf/pinky.gltf'>
+        <a-asset-item id='inky' src='./gltf/inky.gltf'>
+        <a-asset-item id='clyde' src='./gltf/clyde.gltf'>
+
+        <a-mixin id='wall'
+                 material='color: blue; roughness: 0.7; metalness: 0.2;'
+                 geometry='height: 0.25;'>
+        <a-mixin id='ghost-dims' scale='0.2 0.2 0.2'><a-mixin>
+        <a-mixin id='ghost-speed' nav-agent='speed: 1.5;'></a-mixin>
+      </a-assets>
+
+      <a-sky src='#sky'></a-sky>
+
+      <!--Player-->
+      <a-entity id='player' template='src: ./templates/player.html'></a-entity>
+      <!-- Ghosts  -->
+      <a-entity id='ghosts' template='src: ./templates/ghosts.html'></a-entity>
+      <!--Maze -->
+      <a-entity id='maze' rotation='0 90 0' template='src: ./templates/maze.html'></a-entity>
+    </a-scene>
+  </body>
+</html>
