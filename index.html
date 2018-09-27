@@ -11,6 +11,7 @@
 
     <!-- Custom Components -->
     <script src='./components/pac-maze.js'></script>
+    <script src='./components/ghost-behavior.js'></script>
 
   </head>
   <body>
@@ -22,6 +23,7 @@
                  geometry='height: 0.5;'></a-mixin>
 
       <a-entity id='player' template='src: ./templates/player.html'></a-entity>
+      <a-cylinder color='red' radius='2' height='2' position='12 0.5 0' id='blinky' ghost-behavior></a-cylinder>
       <a-entity pac-maze id='maze' template='src: ./templates/maze.html'></a-entity>
     </a-scene>
   </body>

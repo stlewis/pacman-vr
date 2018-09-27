@@ -145,6 +145,7 @@ AFRAME.registerComponent('pac-maze', {
     marker.setAttribute('material', 'opacity: 0.5;');
     marker.setAttribute('color', color)
     marker.setAttribute('position', frame.position);
+    marker.setAttribute('class', 'marker');
 
     document.querySelector('a-scene').appendChild(marker);
   },
