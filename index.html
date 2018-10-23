@@ -1,21 +1,18 @@
 <html>
   <head>
-    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@c05a5e3523667e623742fa2a8172d280c7d10246/dist/aframe-master.min.js"></script>
     <script src="//cdn.rawgit.com/stlewis/aframe-extras/master/dist/aframe-extras.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
-    <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
     <script src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
     <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
     <script src="https://rawgit.com/mayognaise/aframe-gif-component/master/dist/aframe-gif-component.min.js"></script>
     <script src='https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js'></script>
 
-    <!-- Custom Components -->
-    <script src='./components/pac-maze.js'></script>
-    <script src='./components/ghost-behavior.js'></script>
+    <script src='./build/bundle.js'></script>
 
   </head>
   <body>
-    <a-scene visible='true'>
+    <a-scene visible='true' pac-maze>
       <a-assets>
       </a-assets>
         <a-mixin id='wall'
@@ -24,7 +21,7 @@
 
       <a-entity id='player' template='src: ./templates/player.html'></a-entity>
       <a-cylinder color='red' radius='2' height='2' position='12 0.5 0' id='blinky' ghost-behavior></a-cylinder>
-      <a-entity pac-maze id='maze' template='src: ./templates/maze.html'></a-entity>
+      <a-entity id='maze' template='src: ./templates/maze.html'></a-entity>
     </a-scene>
   </body>
 </html>
