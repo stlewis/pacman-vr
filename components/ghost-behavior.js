@@ -9,10 +9,10 @@ AFRAME.registerComponent('ghost-behavior', {
     this.destinationFrame = null;
     this.currentFrame     = null;
     this.previousFrame    = null;
+    this.pacMaze = this.el.sceneEl.systems['pac-maze'];
   },
 
   tick: function() {
-    this.pacMaze = document.querySelector('a-entity[pac-maze]').components['pac-maze'];
     this.setTargetFrame();
 
     if(this.pacMaze) {
@@ -26,12 +26,9 @@ AFRAME.registerComponent('ghost-behavior', {
 
   setDestinationFrame: function() {
 
-  }
+  },
 
   setTargetFrame: function() {
-    this.pacMaze = document.querySelector('a-entity[pac-maze]').components['pac-maze'];
-    if(!this.pacMaze) return null;
-
     this.targetFrame = this.pacMaze.frameArray[17][11];
   },
 

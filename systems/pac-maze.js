@@ -1,4 +1,4 @@
-AFRAME.registerComponent('pac-maze', {
+AFRAME.registerSystem('pac-maze', {
 
   init: function() {
     this.rowCount = 35;
@@ -20,12 +20,6 @@ AFRAME.registerComponent('pac-maze', {
         this.frameArray[y][x] = frame;
       }
     }
-
-    originFrame = this.frameArray[17][11];
-    adjacentFrames = this.framesAtDistance(4, originFrame, true);
-    var self = this;
-
-    adjacentFrames.forEach(function(fr){ self.paintFrame(fr, 'green');  })
   },
 
   positionFromFrame: function(frame) {
