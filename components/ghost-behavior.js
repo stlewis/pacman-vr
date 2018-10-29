@@ -4,19 +4,19 @@ AFRAME.registerComponent('ghost-behavior', {
     dotCount: { default: 0 }
   },
 
-  init() {
+  init: function() {
     this.targetFrame      = null;
     this.destinationFrame = null;
     this.currentFrame     = null;
     this.previousFrame    = null;
-    this.pacMaze          = this.el.sceneEl.systems['pac-maze'];
   },
 
-  tick() {
+  tick: function() {
+    this.pacMaze = document.querySelector('a-entity[pac-maze]').components['pac-maze'];
     this.setTargetFrame();
 
     if(this.pacMaze) {
-      let marker = document.querySelector('.marker');
+      marker = document.querySelector('.marker');
       if(marker) document.querySelector('a-scene').removeChild(marker);
       this.pacMaze.paintFrame(this.targetFrame, 'yellow');
     }
@@ -24,15 +24,16 @@ AFRAME.registerComponent('ghost-behavior', {
 
   },
 
-  setDestinationFrame() {
+  setDestinationFrame: function() {
 
-  },
+  }
 
-  setTargetFrame() {
+  setTargetFrame: function() {
+    this.pacMaze = document.querySelector('a-entity[pac-maze]').components['pac-maze'];
     if(!this.pacMaze) return null;
 
     this.targetFrame = this.pacMaze.frameArray[17][11];
-  }
+  },
 
 
 });

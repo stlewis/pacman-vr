@@ -1,22 +1,19 @@
-AFRAME.registerSystem('pac-maze', {
+AFRAME.registerComponent('pac-maze', {
 
-  init() {
+  init: function() {
     this.rowCount = 35;
     this.colCount = 38;
     this.initializeFrameArray();
   },
 
-  initializeFrameArray() {
+  initializeFrameArray: function() {
     this.frameArray = [];
-    let y;
-    let x;
 
     for(y = 0; y <= this.rowCount; y++) {
       this.frameArray[y] = this.frameArray[y] ? this.frameArray[y] : []
       for(x = 0; x <= this.colCount; x++) {
-        const frame                 = {x: x, y: y};
-        const posFromFrame          = this.positionFromFrame(frame);
-
+        frame                 = {x: x, y: y};
+        posFromFrame          = this.positionFromFrame(frame);
         frame['position']     = posFromFrame;
         frame['traversable']  = this.checkTraversable(frame);
         frame['hasDot']       = this.checkDot(frame);
@@ -24,25 +21,25 @@ AFRAME.registerSystem('pac-maze', {
       }
     }
 
-    const originFrame = this.frameArray[17][11];
-    const adjacentFrames = this.framesAtDistance(4, originFrame, true);
-    const self = this;
+    originFrame = this.frameArray[17][11];
+    adjacentFrames = this.framesAtDistance(4, originFrame, true);
+    var self = this;
 
     adjacentFrames.forEach(function(fr){ self.paintFrame(fr, 'green');  })
   },
 
-  positionFromFrame(frame) {
-    const zeroPoint    = -34;
-    const scaleFactor  = 2;
-    const increaseXBy  = frame.x * scaleFactor;
-    const increaseYBy  = frame.y * scaleFactor;
+  positionFromFrame: function(frame) {
+    zeroPoint    = -34;
+    scaleFactor  = 2;
+    increaseXBy  = frame.x * scaleFactor;
+    increaseYBy  = frame.y * scaleFactor;
 
     return {x: zeroPoint + increaseXBy, z: zeroPoint + increaseYBy, y: 0.5 }
   },
 
-  nextFrameByDir(direction, frame) {
-    const candidateFrames = this.framesWithinDistance(1, frame);
-    let nextFrame         = null;
+  nextFrameByDir: function(direction, frame) {
+    candidateFrames = this.framesWithinDistance(1, frame);
+    nextFrame       = null;
 
     switch(direction){
       case 'North':
@@ -70,15 +67,12 @@ AFRAME.registerSystem('pac-maze', {
     return nextFrame
   },
 
-  framesWithinDistance(distance, frame, traversableOnly) {
-    let frames = []
-    let y;
-    let x;
-
+  framesWithinDistance: function(distance, frame, traversableOnly) {
+    frames = []
     for(y = 0; y <= this.rowCount; y++) {
       for(x = 0; x <= this.colCount; x++) {
-        const candidate = this.frameArray[y][x];
-        const frameDistance = this.frameDistanceBetween(frame, candidate)
+        candidate = this.frameArray[y][x];
+        frameDistance = this.frameDistanceBetween(frame, candidate)
 
         if(frameDistance <= distance && frameDistance != 0){
           if(traversableOnly) {
@@ -93,14 +87,11 @@ AFRAME.registerSystem('pac-maze', {
     return frames;
   },
 
-  framesAtDistance(distance, frame, traversableOnly) {
-    let frames = []
-    let y;
-    let x;
-
+  framesAtDistance: function(distance, frame, traversableOnly) {
+    frames = []
     for(y = 0; y <= this.rowCount; y++) {
       for(x = 0; x <= this.colCount; x++) {
-        const candidate = this.frameArray[y][x];
+        candidate = this.frameArray[y][x];
 
         if(this.frameDistanceBetween(frame, candidate) == distance){
           if(traversableOnly) {
@@ -116,27 +107,23 @@ AFRAME.registerSystem('pac-maze', {
   },
 
   frameDistanceBetween(origin, destination) {
-    const destinationX = destination.x
-    const destinationY = destination.y;
-    const originX = origin.x;
-    const originY = origin.y;
+    var destinationX = destination.x
+    var destinationY = destination.y;
+    var originX = origin.x;
+    var originY = origin.y;
 
-    const xDistance = Math.abs(destinationX - originX);
-    const yDistance = Math.abs(destinationY - originY);
+    var xDistance = Math.abs(destinationX - originX);
+    var yDistance = Math.abs(destinationY - originY);
 
-    const result = xDistance + yDistance
-
+    result = xDistance + yDistance
     return result
   },
 
 
   paintFrames(onlyTraversable, onlyDot) {
-    let y;
-    let x;
-
     for(y = 0; y <= this.rowCount; y++) {
       for(x = 0; x <= this.colCount; x++) {
-        let frame  = this.frameArray[y][x];
+        frame  = this.frameArray[y][x];
 
         if(onlyTraverseable) {
           if(frame.traverseable) this.paintFrame(frame);
@@ -152,9 +139,7 @@ AFRAME.registerSystem('pac-maze', {
 
   paintFrame(frame, color) {
     color = color ? color : 'red';
-
-    const marker = document.createElement('a-cylinder');
-
+    marker = document.createElement('a-cylinder');
     marker.setAttribute('height', 2);
     marker.setAttribute('radius', 0.5);
     marker.setAttribute('material', 'opacity: 0.5;');
@@ -165,8 +150,8 @@ AFRAME.registerSystem('pac-maze', {
     document.querySelector('a-scene').appendChild(marker);
   },
 
-  checkTraversable(frame) {
-    const traversableKey = [
+  checkTraversable: function(frame) {
+    traversableKey = [
       [],
       [],
       [],
@@ -208,20 +193,20 @@ AFRAME.registerSystem('pac-maze', {
     return traversableKey[frame.y].indexOf(frame.x) != -1;
   },
 
-  checkSuperDot(frame) {
-    const superDotFrames = [
+  checkSuperDot: function(frame) {
+    superDotFrames = [
       { x: 11, y: 6 },
       { x: 11, y: 30 },
       { x: 31, y: 4 },
       { x: 31, y: 30 }
     ]
 
-    const self = this;
+    var self = this;
     return superDotFrames.filter(function(sf){ return self.sameFrame(frame, sf)  }).length == 1;
   },
 
-  checkDot(frame) {
-    const noDotFrames = [
+  checkDot: function(frame) {
+    noDotFrames = [
 
       { x: 11, y: 17 },
       { x: 11, y: 18 },
@@ -316,19 +301,18 @@ AFRAME.registerSystem('pac-maze', {
     return frame.traversable && !this.frameInSet(frame, noDotFrames);
   },
 
-  frameInSet(frame, frameSet) {
-    const withX = frameSet.filter(function(fr){ return fr.x == frame.x });
-    const withY = withX.filter(function(fr){ return fr.y == frame.y })[0];
+  frameInSet: function(frame, frameSet) {
+    withX = frameSet.filter(function(fr){ return fr.x == frame.x });
+    withY = withX.filter(function(fr){ return fr.y == frame.y })[0];
 
     return withY ? true : false;
   },
 
-  sameFrame(a, b) {
-    // FIXME Replace with AFRAME Util
-    const ax = a.x
-    const bx = b.x
-    const ay = a.y
-    const by = b.y
+  sameFrame:  function(a, b) {
+    ax = a.x
+    bx = b.x
+    ay = a.y
+    by = b.y
 
     if(ax != bx) return false;
     if(ay != by) return false;
