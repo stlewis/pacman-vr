@@ -1,14 +1,14 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
-    <script src="//cdn.rawgit.com/stlewis/aframe-extras/master/dist/aframe-extras.min.js"></script>
+    <script src='./components/aframe-extras.js'></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
     <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
     <script src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
     <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
     <script src="https://rawgit.com/mayognaise/aframe-gif-component/master/dist/aframe-gif-component.min.js"></script>
     <script src='https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js'></script>
-    <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
+    <script src="https://unpkg.com/aframe-log-component/dist/aframe-log-component.min.js"></script>
 
     <!-- Custom Components -->
     <script src='./systems/pac-maze.js'></script>
@@ -16,7 +16,7 @@
 
   </head>
   <body>
-    <a-scene inspector-plugin-recast visible='true' pac-maze>
+    <a-scene visible='true' pac-maze>
       <a-assets>
         <a-asset-item id='navmesh' src='./navmesh.gltf'>
       </a-assets>
